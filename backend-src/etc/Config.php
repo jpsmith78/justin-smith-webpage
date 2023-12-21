@@ -1,7 +1,6 @@
 <?php
-// namespace Justin;
 
-class Config {
+class config {
   public static $host = 'localhost';
   public static $username = 'justin';
   public static $password = '1Greatguy!';

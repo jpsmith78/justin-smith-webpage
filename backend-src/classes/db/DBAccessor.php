@@ -12,10 +12,10 @@ class DBAccessor {
   private $error;
 
   public function __construct(){
-    $this->host = Config::$host;
-    $this->username = Config::$username;
-    $this->password = Config::$password;
-    $this->dbname = Config::$dbname;
+    $this->host = config::$host;
+    $this->username = config::$username;
+    $this->password = config::$password;
+    $this->dbname = config::$dbname;
 
     $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
     $options = array(
