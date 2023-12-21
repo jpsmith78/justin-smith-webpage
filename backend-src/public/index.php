@@ -2,9 +2,10 @@
 
   require_once '../bootstrap.php';
 
-  echo "hello world \n";
-
   $dba = new DBAccessor();
-  var_dump($dba);
 
+  $query = "SELECT name FROM justin_smith.TEST WHERE age = ?";
+  $params = [45];
+  $stuff = $dba->getRow($query, $params);
+  var_dump($stuff); exit();
 ?>
