@@ -1,17 +1,18 @@
 <?php
 
-class DBAccessor {
+class Database {
 
-  private $host = 'localhost';
-  private $username = 'justin';
-  private $password = '1Greatguy!';
-  private $dbname = 'justin_smith';
+  private $host;
+  private $username;
+  private $password;
+  private $dbname;
 
   private $pdo;
   private $stmt;
   private $error;
 
   public function __construct(){
+
     $this->host = config::$host;
     $this->username = config::$username;
     $this->password = config::$password;
@@ -33,7 +34,7 @@ class DBAccessor {
     }
   }
 
-  public function getRow($query, $params) {
+  public function getArray($query, $params) {
     $return = [];
     $stmt = $this->pdo->prepare($query);
     $stmt->execute($params);
@@ -43,11 +44,3 @@ class DBAccessor {
   }
 
 }
-
-
-
-
-
-
-
-?>

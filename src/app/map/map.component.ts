@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MapService } from '../map.service';
 
 @Component({
   selector: 'app-map',
@@ -8,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './map.component.css'
 })
 export class MapComponent {
+  constructor(private mapservice: MapService) {}
+
   state = 'Arkansas';
 }

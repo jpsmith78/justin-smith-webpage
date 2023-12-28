@@ -13,7 +13,7 @@ export class MapService {
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get(`${this.baseUrl}/map`).pipe(
+    return this.http.get(`${this.baseUrl}/maps`).pipe(
       map((res: any) => {
         return res['data'];
       })
