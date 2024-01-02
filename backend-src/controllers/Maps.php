@@ -1,15 +1,25 @@
 <?php
 
 class Maps extends Controller {
-    
-    public function getMap($param) {
+    private $db;
+
+    public function __construct() {
+        $this->db = new Database();
+    }
+
+    public function getState($param) {
         $params = [];
         $params[] = $param;
-        $db = new Database();
         
-        $query = "SELECT * FROM justin_smith.TEST WHERE age = ?";
-        $map = $db->getArray($query, $params);
+        $query = "SELECT * FROM justin_smith.states WHERE code = ?";
+        $state = $this->db->getArray($query, $params);
 
-        var_dump(json_encode($map));
+        print_r(json_encode($state[0]));
+    }
+
+    public function getAllStates() {
+        $query = "SELECT * FROM justin_smith.states";
+        $states = $this->db->getArray($query, []);
+        return json_encode($states);
     }
 }

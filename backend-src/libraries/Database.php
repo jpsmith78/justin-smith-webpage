@@ -35,12 +35,20 @@ class Database {
   }
 
   public function getArray($query, $params) {
-    $return = [];
     $stmt = $this->pdo->prepare($query);
     $stmt->execute($params);
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 
-    return $result;
+  public function getRow($query, $params) {
+    $stmt = $this->pdo->prepare($query);
+    $stmt->execute($params);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+  }
+
+  public function execute($query, $params){
+    $stmt = $this->pdo->prepare($query);
+    return $this->stmt->execute($params);
   }
 
 }
