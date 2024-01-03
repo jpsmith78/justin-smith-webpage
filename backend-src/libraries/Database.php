@@ -13,10 +13,10 @@ class Database {
 
   public function __construct(){
 
-    $this->host = config::$host;
-    $this->username = config::$username;
-    $this->password = config::$password;
-    $this->dbname = config::$dbname;
+    $this->host = Configuration::$host;
+    $this->username = Configuration::$username;
+    $this->password = Configuration::$password;
+    $this->dbname = Configuration::$dbname;
 
     $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
     $options = array(

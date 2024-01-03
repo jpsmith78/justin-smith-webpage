@@ -3,19 +3,19 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { State } from './state';
 import { Observable } from 'rxjs';
 
-import { map } from 'rxjs/operators';
+// import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 export class MapService {
-  baseUrl = 'http://localhost:8888/public';
+  base_url = 'http://localhost:8888/public';
 
-  constructor(public http: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
   getState(): Observable<HttpResponse<State>> {
-    return this.http.get<State>(`${this.baseUrl}/states/getstate/MA`, { observe: 'response'});
+    return this.http.get<State>(`${this.base_url}/maps/getstate/MA`, { observe: 'response'});
   }
 }
