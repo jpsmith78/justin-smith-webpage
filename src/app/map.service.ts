@@ -18,4 +18,8 @@ export class MapService {
   getState(): Observable<HttpResponse<State>> {
     return this.http.get<State>(`${this.base_url}/maps/getstate/MA`, { observe: 'response'});
   }
+
+  getAllStates(): Observable<HttpResponse<State[]>> {
+    return this.http.get<State[]>(`${this.base_url}/maps/getallstates`, {observe: 'response'});
+  }
 }
