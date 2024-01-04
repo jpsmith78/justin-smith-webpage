@@ -1,8 +1,8 @@
 <?php
 
 class Application {
-    protected $current_controller = 'Maps';
-    protected $current_method = 'getMap';
+    protected $current_controller;
+    protected $current_method;
     protected $params = [];
 
     public function __construct() {

@@ -1,5 +1,10 @@
 <div>
   <h1>Hello {{title}}</h1>
   <h2>test test test</h2>
-  <app-map></app-map>
+  <nav>
+    <a routerLink="/map">map</a><br/>
+    <a routerLink="/home">home</a><br/>
+    <a routerLink="/users">users</a><br/>
+  </nav>
+  <router-outlet></router-outlet>
 </div>
