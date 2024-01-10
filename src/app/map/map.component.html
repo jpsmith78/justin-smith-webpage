@@ -2,12 +2,13 @@
 
 <P>user states</P>
 <div class="states_container">
-    <div class="state" *ngFor="let state of user_states">
-        <div  (click)="onSelect(state)">
-            <p>{{state.code}}</p>
-            <p>{{state.name}}</p>
-            <p>{{state.selected}}</p>
-        </div>
+    <div 
+        *ngFor="let state of user_states" 
+        [ngClass]="(state.selected == 'Yes')?'selected_state':'unselected_state'" 
+        (click)="onSelect(state)"
+    >
+        <p>{{state.code}}</p>
+        <p>{{state.name}}</p>
     </div>
 </div>
 

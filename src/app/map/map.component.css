@@ -4,10 +4,18 @@
     flex-wrap: wrap;
 }
 
-.state {
+.selected_state {
     margin: 10px;
     padding: 10px;
     background-color: blue;
+    width: 100px;
+    color: white;
+}
+
+.unselected_state {
+    margin: 10px;
+    padding: 10px;
+    background-color: red;
     width: 100px;
     color: white;
 }
