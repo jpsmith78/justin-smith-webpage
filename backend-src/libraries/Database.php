@@ -48,7 +48,11 @@ class Database {
 
   public function execute($query, $params){
     $stmt = $this->pdo->prepare($query);
-    return $this->stmt->execute($params);
+    if ($stmt->execute($params)) {
+      return TRUE;
+    } else {
+      return FALSE;
+    }
   }
 
 }

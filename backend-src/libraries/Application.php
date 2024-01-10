@@ -33,21 +33,33 @@ class Application {
         }
   
         // Get params
-        // var_dump($url); exit();
-        $this->params = $url ? array_values($url) : [];
-        // var_dump($this->params); exit();
+        $this->params = $this->getParams();
+        // var_dump(($this->params)); exit();
         // Call a callback with array of params
         call_user_func_array([$this->current_controller, $this->current_method], $this->params);
     }
 
     public function getUrl(){
-        if(isset($_GET['url'])){
-            $url = rtrim($_GET['url'], '/');
+        if(isset($_REQUEST['url'])){
+            $url = rtrim($_REQUEST['url'], '/');
             $url = filter_var($url, FILTER_SANITIZE_URL);
             $url = explode('/', $url);
             return $url;
         }
-      
+    }
+
+    public function getParams() {
+      $params = [];
+
+      foreach($_REQUEST as $param_key => $param_value) {
+        if ($param_key == 'url') {
+          continue;
+        }
+
+        $params[] = $param_value;
+      }
+
+      return $params;
     }
 
 }
