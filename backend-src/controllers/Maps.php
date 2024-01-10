@@ -36,9 +36,12 @@ class Maps extends Controller {
         $params[] = $user_id;
 
         $query = "
-            SELECT s.name, s.code FROM justin_smith.states s
-            INNER JOIN justin_smith.user_states us ON (s.code = us.state_code)
-            WHERE us.user_id = ?
+            SELECT 
+                s.name, 
+                s.code,
+                IF (us.state_code IS NOT NULL, 'Yes', 'No') as selected
+            FROM justin_smith.states s
+            LEFT JOIN justin_smith.user_states us ON (s.code = us.state_code AND us.user_id = ?)
         ";
 
         $user_states = $this->db->getArray($query, $params);
@@ -61,12 +64,34 @@ class Maps extends Controller {
             VALUES (?, ?)
         ";
 
-       if ($this->db->execute($query, $params)) {
-        $result = 'insert succcesful';
-       } else {
-        $result = 'insert failed';
-       }
+        if ($this->db->execute($query, $params)) {
+            $result = 'insert succesful';
+        } else {
+            $result = 'insert failed';
+        }
 
        print_r(json_encode($result));
     }
+
+    public function removeUserState($user_id, $state_code) {
+        $params = [
+            $user_id,
+            $state_code
+        ];
+
+        $query = "
+            DELETE FROM justin_smith.user_states 
+            WHERE user_id = ?
+            AND state_code = ?
+        ";
+
+        if ($this->db->execute($query, $params)) {
+            $result = 'delete succesful';
+        } else {
+            $result = 'delete failed';
+        }
+
+        print_r(json_encode($result));
+    }
+
 }

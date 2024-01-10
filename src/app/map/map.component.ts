@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  } from '@angular/core';
 import { MapService } from '../map.service';
 import { State } from '../state';
 
 import {
-  NgFor
+  NgFor,
+  NgIf,
+  NgClass
 } from '@angular/common';
 
 @Component({
   selector: 'app-map',
   standalone: true,
   imports: [
-    NgFor
+    NgFor,
+    NgIf,
+    NgClass
   ],
   templateUrl: './map.component.html',
   styleUrl: './map.component.css',
@@ -19,23 +23,27 @@ export class MapComponent implements OnInit {
   state: State;
   states: State[] | null;
   user_states: State[] | null;
+  response: string;
 
   constructor(private map_service: MapService) {
-    this.state = {code: '', name: '' };
-    this.states = [{code: '', name: ''}];
-    this.user_states = [{code: '', name: ''}];
+    this.state = {code: '', name: '', selected: 'No'};
+    this.states = [{code: '', name: '', selected: 'No'}];
+    this.user_states = [{code: '', name: '', selected: 'No'}];
+    this.response = '';
   }
 
   ngOnInit() {
-    this.getUserState();
     this.getAllUserStates();
-    this.addUserState(1, 'ME');
+    this.removeUserState(1, 'AK');
   }
 
-  getUserState() {
-    let state = this.map_service.getState();
-    state.subscribe(data => this.state.code = data.body?.code);
-    state.subscribe(data => this.state.name = data.body?.name);
+  onSelect(state: State) {
+    if (state.selected == 'No') {
+      this.addUserState(1, state.code);
+    } else {
+      this.removeUserState(1, state.code);
+    }
+    this.getAllUserStates();
   }
 
   getAllUserStates() {
@@ -45,7 +53,12 @@ export class MapComponent implements OnInit {
 
   addUserState(user_id: number, state_id: string) {
     let response = this.map_service.addUserState(user_id, state_id);
-    response.subscribe(data=> console.log(data));
+    response.subscribe(data=> this.response = data);
+  }
+
+  removeUserState(user_id: number, state_id: string) {
+    let response = this.map_service.removeUserState(user_id, state_id);
+    response.subscribe(data=> this.response = data);
   }
 
 

@@ -15,28 +15,19 @@ export class MapService {
   constructor(private http: HttpClient) {
   }
 
-  getState(): Observable<HttpResponse<State>> {
-    return this.http.get<State>(`${this.base_url}/maps/getstate?state_code=MA`, { observe: 'response'});
-  }
-
-  getAllStates(): Observable<HttpResponse<State[]>> {
-    return this.http.get<State[]>(`${this.base_url}/maps/getallstates`, {observe: 'response'});
-  }
-
   getAllUserStates(user_id: number): Observable<HttpResponse<State[]>> {
     return this.http.get<State[]>(`${this.base_url}/maps/getalluserstates?user_id=${user_id}`, {observe: 'response'});
   }
 
   addUserState(user_id: number, state_code: string) {
-    const config = {
-        headers: {
-        "Content-Type": "application/json",
-        'Access-Control-Allow-Origin': '*',
-      }
-    }
-
+    const config = {headers: {"Content-Type": "application/json"}}
     return this.http.put<any>(`${this.base_url}/maps/adduserstate?user_id=${user_id}&state_code=${state_code}`, config);
+  }
 
+  removeUserState(user_id: number, state_code: string) {
+    const config = {headers: {"Content-Type": "application/json"}}
+
+    return this.http.delete<any>(`${this.base_url}/maps/removeuserstate?user_id=${user_id}&state_code=${state_code}`, config);
   }
 
 

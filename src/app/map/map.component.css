@@ -1,0 +1,13 @@
+.states_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.state {
+    margin: 10px;
+    padding: 10px;
+    background-color: blue;
+    width: 100px;
+    color: white;
+}

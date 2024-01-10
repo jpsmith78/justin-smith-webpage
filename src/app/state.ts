@@ -1,4 +1,5 @@
 export interface State {
-    code: string | undefined;
-    name: string | undefined;
+    code: string | '';
+    name: string | '';
+    selected: string | 'No';
 }

@@ -1,13 +1,13 @@
 <h2>Map</h2>
-<h4>{{state.code}}</h4>
-<h4>{{state.name}}</h4>
-<ul class="states"></ul>
-<li *ngFor="let state of user_states">
-    <p>{{state.code}}</p>
-    <p>{{state.name}}</p>
-</li>
-<li *ngFor="let state of states">
-    <p>{{state.code}}</p>
-    <p>{{state.name}}</p>
-</li>
+
+<P>user states</P>
+<div class="states_container">
+    <div class="state" *ngFor="let state of user_states">
+        <div  (click)="onSelect(state)">
+            <p>{{state.code}}</p>
+            <p>{{state.name}}</p>
+            <p>{{state.selected}}</p>
+        </div>
+    </div>
+</div>
 
