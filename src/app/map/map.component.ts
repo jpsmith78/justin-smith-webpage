@@ -5,7 +5,8 @@ import { State } from '../state';
 import {
   NgFor,
   NgIf,
-  NgClass
+  NgClass,
+  LowerCasePipe
 } from '@angular/common';
 
 @Component({
@@ -14,7 +15,8 @@ import {
   imports: [
     NgFor,
     NgIf,
-    NgClass
+    NgClass,
+    LowerCasePipe
   ],
   templateUrl: './map.component.html',
   styleUrl: './map.component.css',
@@ -26,9 +28,9 @@ export class MapComponent implements OnInit {
   response: string;
 
   constructor(private map_service: MapService) {
-    this.state = {code: '', name: '', selected: 'No'};
-    this.states = [{code: '', name: '', selected: 'No'}];
-    this.user_states = [{code: '', name: '', selected: 'No'}];
+    this.state = {code: '', name: '', coordinates: '', selected: 'No'};
+    this.states = [{code: '', name: '', coordinates: '', selected: 'No'}];
+    this.user_states = [{code: '', name: '', coordinates: '', selected: 'No'}];
     this.response = '';
   }
 

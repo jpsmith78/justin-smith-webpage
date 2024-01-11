@@ -39,6 +39,7 @@ class Maps extends Controller {
             SELECT 
                 s.name, 
                 s.code,
+                s.coordinates,
                 IF (us.state_code IS NOT NULL, 'Yes', 'No') as selected
             FROM justin_smith.states s
             LEFT JOIN justin_smith.user_states us ON (s.code = us.state_code AND us.user_id = ?)
