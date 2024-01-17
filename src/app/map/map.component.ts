@@ -1,4 +1,4 @@
-    import { Component, OnInit,  } from '@angular/core';
+    import { Component, OnInit } from '@angular/core';
     import { MapService } from '../map.service';
     import { State } from '../state';
 
@@ -23,20 +23,17 @@
     })
     export class MapComponent implements OnInit {
         state: State;
-        states: State[] | null;
         user_states: State[] | null;
         response: string;
 
     constructor(private map_service: MapService) {
         this.state = {code: '', name: '', coordinates: '', selected: 'No'};
-        this.states = [{code: '', name: '', coordinates: '', selected: 'No'}];
         this.user_states = [{code: '', name: '', coordinates: '', selected: 'No'}];
         this.response = '';
     }
 
     ngOnInit() {
         this.getAllUserStates();
-        this.removeUserState(1, 'AK');
     }
 
     onSelect(state: State) {

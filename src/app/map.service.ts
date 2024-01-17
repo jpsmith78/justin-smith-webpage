@@ -12,8 +12,7 @@ import { Observable } from 'rxjs';
 export class MapService {
   base_url = 'http://localhost:8888/public';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getAllUserStates(user_id: number): Observable<HttpResponse<State[]>> {
     return this.http.get<State[]>(`${this.base_url}/maps/getalluserstates?user_id=${user_id}`, {observe: 'response'});
@@ -26,7 +25,6 @@ export class MapService {
 
   removeUserState(user_id: number, state_code: string) {
     const config = {headers: {"Content-Type": "application/json"}}
-
     return this.http.delete<any>(`${this.base_url}/maps/removeuserstate?user_id=${user_id}&state_code=${state_code}`, config);
   }
 
