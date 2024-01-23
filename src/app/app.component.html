@@ -1,13 +1,13 @@
 <div>
-  <h1>Hello {{title}}</h1>
+  <h1>Hello {{username}}</h1>
   <nav>
-    <a routerLink="/map">map</a><br/>
-    <a routerLink="/home">home</a><br/>
+    <a routerLink="/map">Map</a><br/>
+    <a routerLink="/home">Home</a><br/>
     <a routerLink="/users">users</a><br/>
   </nav>
   <nav>
-    <a routerLink="/register">register</a><br/>
-    <a routerLink="/login">login</a><br/>
+    <button [hidden]="username != 'Guest'" routerLink="/login">Login</button><br/>
+    <button [hidden]="username == 'Guest'" (click)="submitLogOut()">Log out</button><br/>
   </nav>
   <router-outlet></router-outlet>
 </div>

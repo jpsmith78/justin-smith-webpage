@@ -13,15 +13,16 @@
         selector: 'app-map',
         standalone: true,
         imports: [
-        NgFor,
-        NgIf,
-        NgClass,
-        LowerCasePipe
+            NgFor,
+            NgIf,
+            NgClass,
+            LowerCasePipe
         ],
         templateUrl: './map.component.html',
         styleUrl: './map.component.css',
     })
     export class MapComponent implements OnInit {
+        user_id: string | null;
         state: State;
         user_states: State[] | null;
         response: string;
@@ -30,10 +31,13 @@
         this.state = {code: '', name: '', coordinates: '', selected: 'No'};
         this.user_states = [{code: '', name: '', coordinates: '', selected: 'No'}];
         this.response = '';
+        this.user_id = localStorage.getItem('user_id');
     }
 
     ngOnInit() {
         this.getAllUserStates();
+        console.log(localStorage.getItem('user_id'));
+
     }
 
     onSelect(state: State) {

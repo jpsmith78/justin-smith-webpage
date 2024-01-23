@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 import { NgIf, NgFor } from '@angular/common';
 import { AccountService } from '../account.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -17,17 +16,16 @@ import { Router } from '@angular/router';
 })
 
 export class RegisterComponent implements OnInit {
-    usernames: string[] = [];
+    user_names: string[] = [];
     emails: string[] = [];
     response: string;
 
     register_form = this.formBuilder.group({
-        username: ['',[ Validators.required, this.userNameExistsValidator()]],
+        user_name: ['',[ Validators.required, this.user_nameExistsValidator()]],
         email: ['', [Validators.email, Validators.required, this.emailExistsValidator()]]
     });
 
     constructor(
-        private router: Router,
         private formBuilder: FormBuilder,
         private account_service: AccountService,
     ) {
@@ -38,11 +36,11 @@ export class RegisterComponent implements OnInit {
         this.getAllUsers();
     }
 
-    onSubmit() {
+    submitRegistration() {
         let response = this.account_service.addUser(this.register_form);
         response.subscribe(data=> this.response = data.body);
 
-        this.register_form.controls.username.reset();
+        this.register_form.controls.user_name.reset();
         this.register_form.controls.email.reset();
     }
 
@@ -50,17 +48,17 @@ export class RegisterComponent implements OnInit {
         let users = this.account_service.getAllUsers();
         users.subscribe(data => {
             for (let user of data.body) {
-                this.usernames.push(user.user_name);
+                this.user_names.push(user.user_name);
                 this.emails.push(user.email);
             }
         });
     }
 
-    userNameExistsValidator(): ValidatorFn {
+    user_nameExistsValidator(): ValidatorFn {
         return (control:AbstractControl) : ValidationErrors | null => {
-            const username = control.value;
+            const user_name = control.value;
 
-            if (this.usernames.includes(username)) {
+            if (this.user_names.includes(user_name)) {
                 return {unique: true};
             } else {
                 return null;

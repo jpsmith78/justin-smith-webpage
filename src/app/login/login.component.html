@@ -1,10 +1,41 @@
 <div>
     <h3>Login</h3>
-    <form>
-        <label for="username">User Name</label><br/>
-        <input type="text" name="username"><br/>
+    <form [formGroup]="login_form" (ngSubmit)="submitLogin()">
+        <label for="user_name">User Name</label><br/>
+        <input id="user_name" type="text" formControlName="user_name" placeholder="User Name"><br/>
+
+        <span class="text-danger" 
+            *ngIf="login_form.get('user_name')?.errors && 
+            login_form.get('user_name')?.hasError('unique')"
+        >user_name already taken</span>
+        <span class="text-danger" 
+            *ngIf="login_form.get('user_name')?.errors 
+                && login_form.get('user_name')?.dirty 
+                && login_form.get('user_name')?.hasError('required')"
+        >user_name cannot be empty</span><br/>
+
         <label for="email">Email</label><br/>
-        <input type="text" name="email"><br/>
-        <input type="submit" value="Login"/>
+        <input type="email" formControlName="email" placeholder="Email"><br/>
+
+        <span class="text-danger" 
+            *ngIf="login_form.get('email')?.errors 
+                && login_form.get('email')?.dirty 
+                && login_form.get('email')?.hasError('email')"
+        >Please use correct email format</span>
+        <span class="text-danger" 
+            *ngIf="login_form.get('email')?.errors 
+                && login_form.get('email')?.dirty 
+                && login_form.get('email')?.hasError('required')"
+        >Email cannot be empty</span><br/>
+
+
+        <input type="submit" [disabled]="!login_form.valid" value="Login"/>
     </form>
+
+    <div *ngIf="response">{{response}}</div>
+
+    <form action="/register">
+        <div>Not signed up yet? Register Here</div>
+        <button type="submit">Register</button>
+     </form>
 </div>

@@ -1,18 +1,18 @@
 <div>
     <h3>Register New User</h3>
-    <form [formGroup]="register_form" (ngSubmit)="onSubmit()">
-        <label for="username">User Name</label><br/>
-        <input id="username" type="text" formControlName="username" placeholder="Username"><br/>
+    <form [formGroup]="register_form" (ngSubmit)="submitRegistration()">
+        <label for="user_name">User Name</label><br/>
+        <input id="user_name" type="text" formControlName="user_name" placeholder="User Name"><br/>
 
         <span class="text-danger" 
-            *ngIf="register_form.get('username')?.errors && 
-            register_form.get('username')?.hasError('unique')"
-        >Username already taken</span>
+            *ngIf="register_form.get('user_name')?.errors && 
+            register_form.get('user_name')?.hasError('unique')"
+        >user_name already taken</span>
         <span class="text-danger" 
-            *ngIf="register_form.get('username')?.errors 
-                && register_form.get('username')?.dirty 
-                && register_form.get('username')?.hasError('required')"
-        >Please enter Username</span><br/>
+            *ngIf="register_form.get('user_name')?.errors 
+                && register_form.get('user_name')?.dirty 
+                && register_form.get('user_name')?.hasError('required')"
+        >user_name cannot be empty</span><br/>
 
         <label for="email">Email</label><br/>
         <input type="email" formControlName="email" placeholder="Email"><br/>
@@ -26,18 +26,21 @@
             *ngIf="register_form.get('email')?.errors 
                 && register_form.get('email')?.dirty 
                 && register_form.get('email')?.hasError('required')"
-        >Please enter Email</span>
+        >Email cannot be empty</span>
         <span class="text-danger" 
             *ngIf="register_form.get('email')?.errors 
                 && register_form.get('email')?.dirty 
                 && register_form.get('email')?.hasError('unique')"
-        >Email already taken</span><br/>
+        >Email is already taken</span><br/>
 
         <input type="submit" [disabled]="!register_form.valid" value="Register"/>
 
     </form>
 
     <div *ngIf="response">{{response}}</div>
-    <a *ngIf="response == 'registration successful'" href="/login">Go to Login Page</a>
+    <form *ngIf="response == 'registration successful'" action="/login">
+        <div>Go to Login Page</div>
+        <button type="submit">Login</button>
+     </form>
 </div>
 

@@ -7,17 +7,20 @@ class Users extends Controller {
         $this->db = new Database();
     }
 
-    public function getUser($user_id) {
-        $params = [];
-        $params[] = $user_id;
+    public function getUser($username, $email) {
+        $params = [
+            $username,
+            $email
+        ];
         
-        $query = "SELECT * FROM justin_smith.users WHERE user_id = ?";
+        $query = "SELECT * FROM justin_smith.users 
+        WHERE user_name = ? AND email = ?";
         $user = $this->db->getArray($query, $params);
 
         if (isset($user[0])) {
             print_r(json_encode($user[0]));
         } else {
-            print_r(json_encode('failed to get response'));
+            print_r(json_encode('user does not exist'));
         }
     }
 
