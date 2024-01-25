@@ -42,24 +42,24 @@
 
     onSelect(state: State) {
         if (state.selected == 'No') {
-            this.addUserState(1, state.code);
+            this.addUserState(this.user_id, state.code);
         } else {
-            this.removeUserState(1, state.code);
+            this.removeUserState(this.user_id, state.code);
         }
         this.getAllUserStates();
     }
 
     getAllUserStates() {
-        let user_states = this.map_service.getAllUserStates(1);
+        let user_states = this.map_service.getAllUserStates(this.user_id);
         user_states.subscribe(data => this.user_states = data.body);
     }
 
-    addUserState(user_id: number, state_id: string) {
+    addUserState(user_id: string | null, state_id: string) {
         let response = this.map_service.addUserState(user_id, state_id);
         response.subscribe(data=> this.response = data);
     }
 
-    removeUserState(user_id: number, state_id: string) {
+    removeUserState(user_id: string | null, state_id: string) {
         let response = this.map_service.removeUserState(user_id, state_id);
         response.subscribe(data=> this.response = data);
     }

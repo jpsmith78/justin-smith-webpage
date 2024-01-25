@@ -46,9 +46,9 @@ class Users extends Controller {
         ";
         
         if ($this->db->execute($query, $params)) {
-            $result = 'registration successful';
+            $result = 'Registration Successful';
         } else {
-            $result = 'registration failed';
+            $result = 'Registration Failed';
         }
 
         print_r(json_encode($result));

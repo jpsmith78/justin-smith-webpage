@@ -21,7 +21,7 @@ export class LoginComponent {
 
     login_form = this.formBuilder.group({
         user_name: ['', Validators.required],
-        email: ['', [Validators.email, Validators.required]]
+        email: ['', [Validators.required]]
     });
 
     constructor(
@@ -34,23 +34,27 @@ export class LoginComponent {
     }
 
     submitLogin() {
+
         let login = this.account_service.loginUser(this.login_form);
         login.subscribe(data => {
-            console.log(data.body);
             if (data.body.user_id) {
-                console.log(data.body);
                 localStorage.setItem('user_id', data.body.user_id);
                 localStorage.setItem('user_name', data.body.user_name);
-                this.toast.success('Login Successful!');
-                this.router.navigate(['/home']);
+                this.toast.success('Login Successful!', '', { positionClass:'toast-custom' });
+                this.router.navigate(['/home'])
+                    // Don't reload right away. We want the user to be able to read the success message.
+                    .then(()=> {
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 2000);
+                    });
             } else  {
-                this.response = data.body;
+                this.toast.warning('Login Failed!', '', { positionClass:'toast-custom' });
+
             }
         });
-
         this.login_form.controls.user_name.reset();
         this.login_form.controls.email.reset();
-        console.log(this.response);
 
     }
 

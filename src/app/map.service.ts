@@ -14,16 +14,16 @@ export class MapService {
 
   constructor(private http: HttpClient) {}
 
-  getAllUserStates(user_id: number): Observable<HttpResponse<State[]>> {
+  getAllUserStates(user_id: string | null): Observable<HttpResponse<State[]>> {
     return this.http.get<State[]>(`${this.base_url}/maps/getalluserstates?user_id=${user_id}`, {observe: 'response'});
   }
 
-  addUserState(user_id: number, state_code: string) {
+  addUserState(user_id: string | null, state_code: string) {
     const config = {headers: {"Content-Type": "application/json"}}
     return this.http.put<any>(`${this.base_url}/maps/adduserstate?user_id=${user_id}&state_code=${state_code}`, config);
   }
 
-  removeUserState(user_id: number, state_code: string) {
+  removeUserState(user_id: string | null, state_code: string) {
     const config = {headers: {"Content-Type": "application/json"}}
     return this.http.delete<any>(`${this.base_url}/maps/removeuserstate?user_id=${user_id}&state_code=${state_code}`, config);
   }
