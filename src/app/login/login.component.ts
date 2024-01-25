@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
         NgFor
     ],
     templateUrl: './login.component.html',
-    styleUrl: './login.component.css'
+    styleUrls: ['../app.component.css', './login.component.css']
 })
 export class LoginComponent {
     response: string;

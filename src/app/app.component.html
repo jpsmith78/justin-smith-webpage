@@ -1,15 +1,15 @@
 <div>
     <div class="outer-nav">
         <nav class="inner-nav">
-            <a class="nav-button" routerLinkActive="active-nav-button" routerLink="/home">Home</a><br/>
-            <a class="nav-button" routerLinkActive="active-nav-button" routerLink="/map">Map</a><br/>
-            <a class="nav-button" routerLinkActive="active-nav-button" routerLink="/users" >users</a><br/>
+            <a class="button" routerLinkActive="active-button" routerLink="/home">Home</a><br/>
+            <a class="button" routerLinkActive="active-button" routerLink="/map">Map</a><br/>
+            <a class="button" routerLinkActive="active-button" routerLink="/users" >users</a><br/>
         </nav>
         <nav class="inner-nav">
             <!-- [ngClass]="(state.selected == 'Yes')?'selected_state':'unselected_state'"  -->
 
-            <a [ngClass]="(username == 'Guest')?'nav-button':'is-hidden'" routerLinkActive="active-nav-button" routerLink="/login">Login</a><br/>
-            <a [ngClass]="(username == 'Guest')?'is-hidden':'nav-button'" routerLinkActive="active-nav-button" (click)="submitLogOut()">Log out</a><br/>
+            <a [ngClass]="(username == 'Guest')?'button':'is-hidden'" routerLinkActive="active-button" routerLink="/login">Login</a><br/>
+            <a [ngClass]="(username == 'Guest')?'is-hidden':'button'" routerLinkActive="active-button" (click)="submitLogOut()">Log out</a><br/>
         </nav>
     </div>
     <h1>Justin Smith Web Page</h1>

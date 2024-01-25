@@ -33,14 +33,14 @@
                 && register_form.get('email')?.hasError('unique')"
         >Email is already taken</span><br/>
 
-        <input type="submit" [disabled]="!register_form.valid" value="Register"/>
+        <input class="button" type="submit" [disabled]="!register_form.valid" value="Register"/>
 
     </form>
 
     <div *ngIf="response">{{response}}</div>
     <form *ngIf="response == 'registration successful'" action="/login">
         <div>Go to Login Page</div>
-        <button type="submit">Login</button>
+        <button class="button" type="submit">Login</button>
      </form>
 </div>
 

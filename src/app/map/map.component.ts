@@ -1,6 +1,7 @@
     import { Component, OnInit } from '@angular/core';
     import { MapService } from '../map.service';
     import { State } from '../state';
+    import { ToastrService } from 'ngx-toastr';
 
     import {
         NgFor,
@@ -27,7 +28,10 @@
         user_states: State[] | null;
         response: string;
 
-    constructor(private map_service: MapService) {
+    constructor(
+        private map_service: MapService,
+        private toast: ToastrService
+    ) {
         this.state = {code: '', name: '', coordinates: '', selected: 'No'};
         this.user_states = [{code: '', name: '', coordinates: '', selected: 'No'}];
         this.response = '';
@@ -36,16 +40,20 @@
 
     ngOnInit() {
         this.getAllUserStates();
-        console.log(localStorage.getItem('user_id'));
-
     }
 
     onSelect(state: State) {
-        if (state.selected == 'No') {
-            this.addUserState(this.user_id, state.code);
+        console.log(this.user_id)
+        if (this.user_id != null) {
+            if (state.selected == 'No') {
+                this.addUserState(this.user_id, state.code);
+            } else {
+                this.removeUserState(this.user_id, state.code);
+            }
         } else {
-            this.removeUserState(this.user_id, state.code);
+            this.toast.error('Log in to play Map Game', '', { positionClass:'toast-custom' });
         }
+
         this.getAllUserStates();
     }
 

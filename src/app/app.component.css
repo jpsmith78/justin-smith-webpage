@@ -11,9 +11,9 @@
     display: none;
 }
 
-.nav-button {
+.button {
     box-shadow: inset 0 1px 0 0 #ffffff;
-    background: #ffffff linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+    background: #ffffff;
     border-radius: 6px;
     border: 1px solid #dcdcdc;
     display: inline-block;
@@ -28,9 +28,9 @@
     outline: 0;
 }
 
-.active-nav-button {
+.active-button {
     box-shadow: inset 0 1px 0 0 #dcecfb;
-    background: #bddbfa linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
+    background: #3923a8;
     border: 1px solid #84bbf3;
     color: #ffffff;
     text-shadow: 0 1px 0 #528ecc;
