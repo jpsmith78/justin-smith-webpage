@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 import { NgIf, NgFor } from '@angular/common';
 import { AccountService } from '../account.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
     standalone: true,
     imports: [
         ReactiveFormsModule,
+        RouterLink,
         NgIf,
         NgFor
     ],

@@ -6,8 +6,6 @@
             <a class="button" routerLinkActive="active-button" routerLink="/users" >users</a><br/>
         </nav>
         <nav class="inner-nav">
-            <!-- [ngClass]="(state.selected == 'Yes')?'selected_state':'unselected_state'"  -->
-
             <a [ngClass]="(username == 'Guest')?'button':'is-hidden'" routerLinkActive="active-button" routerLink="/login">Login</a><br/>
             <a [ngClass]="(username == 'Guest')?'is-hidden':'button'" routerLinkActive="active-button" (click)="submitLogOut()">Log out</a><br/>
         </nav>

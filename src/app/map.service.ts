@@ -14,6 +14,10 @@ export class MapService {
 
   constructor(private http: HttpClient) {}
 
+  getUserStateCount(user_id: string | null): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.base_url}/maps/getuserstatecount?user_id=${user_id}`, {observe: 'response'});
+  }
+
   getAllUserStates(user_id: string | null): Observable<HttpResponse<State[]>> {
     return this.http.get<State[]>(`${this.base_url}/maps/getalluserstates?user_id=${user_id}`, {observe: 'response'});
   }

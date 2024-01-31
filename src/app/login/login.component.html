@@ -25,8 +25,6 @@
 
     <div *ngIf="response">{{response}}</div>
 
-    <form class="register-redirect" action="/register">
         <div>Not signed up yet? Register Here</div>
-        <button class="button" type="submit">Register</button>
-     </form>
+        <a class="button" routerLink="/register">Register</a>
 </div>
