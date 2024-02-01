@@ -1,18 +1,18 @@
-<div>
+<div class="form-container">
     <h3>Register New User</h3>
-    <form [formGroup]="register_form" (ngSubmit)="submitRegistration()">
+    <form class="login-form" [formGroup]="register_form" (ngSubmit)="submitRegistration()">
         <label for="user_name">User Name</label><br/>
         <input id="user_name" type="text" formControlName="user_name" placeholder="User Name"><br/>
 
         <span class="text-danger" 
             *ngIf="register_form.get('user_name')?.errors && 
             register_form.get('user_name')?.hasError('unique')"
-        >user_name already taken</span>
+        >User Name already taken</span>
         <span class="text-danger" 
             *ngIf="register_form.get('user_name')?.errors 
                 && register_form.get('user_name')?.dirty 
                 && register_form.get('user_name')?.hasError('required')"
-        >user_name cannot be empty</span><br/>
+        >User Name cannot be empty</span><br/>
 
         <label for="email">Email</label><br/>
         <input type="email" formControlName="email" placeholder="Email"><br/>
@@ -33,14 +33,7 @@
                 && register_form.get('email')?.hasError('unique')"
         >Email is already taken</span><br/>
 
-        <input class="button" type="submit" [disabled]="!register_form.valid" value="Register"/>
-
+        <input class="button submit" type="submit" [disabled]="!register_form.valid" value="Register"/>
     </form>
-
-    <div *ngIf="response">{{response}}</div>
-    <form *ngIf="response == 'registration successful'" action="/login">
-        <div>Go to Login Page</div>
-        <button class="button" type="submit">Login</button>
-     </form>
 </div>
 

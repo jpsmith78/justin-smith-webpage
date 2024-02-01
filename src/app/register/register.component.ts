@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 import { NgIf, NgFor } from '@angular/common';
 import { AccountService } from '../account.service';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -29,7 +30,8 @@ export class RegisterComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private account_service: AccountService,
-        private toast: ToastrService
+        private toast: ToastrService,
+        private router: Router,
     ) {
         this.response = '';
     }
@@ -43,6 +45,7 @@ export class RegisterComponent implements OnInit {
         response.subscribe(data=> {
             if (data.body == 'Registration Successful') {
                 this.toast.success(data.body, '', { positionClass:'toast-custom' })
+                this.router.navigate(['/login'])
             } else {
                 this.toast.error(data.body, '', { positionClass:'toast-custom' })
             }

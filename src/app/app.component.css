@@ -1,3 +1,6 @@
+body {
+    font: optional;
+}
 .outer-nav {
     display: flex;
     justify-content: space-between;
@@ -17,15 +20,13 @@
     border-radius: 6px;
     border: 1px solid #dcdcdc;
     display: inline-block;
-    cursor: pointer;
     color: #666666;
-    font-family: Arial, sans-serif;
     font-size: 15px;
     font-weight: bold;
     padding: 6px 24px;
     text-decoration: none;
     text-shadow: 0 1px 0 #ffffff;
-    outline: 0;
+    max-width: 100px;
 }
 
 .active-button {
@@ -36,7 +37,38 @@
     text-shadow: 0 1px 0 #528ecc;
 }
 
-/* .toast-custom {
+.toast-custom {
     top: 900;
     left: 0px;
-} */
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    padding: 50px;
+    margin-bottom: 50px;
+}
+
+.submit {
+    margin: auto;
+}
+
+.redirect {
+    height: 60px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}

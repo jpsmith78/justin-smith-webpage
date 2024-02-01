@@ -18,7 +18,6 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['../app.component.css', './login.component.css']
 })
 export class LoginComponent {
-    response: string;
 
     login_form = this.formBuilder.group({
         user_name: ['', Validators.required],
@@ -30,9 +29,7 @@ export class LoginComponent {
         private account_service: AccountService,
         private router: Router,
         private toast: ToastrService
-    ) {
-        this.response = '';
-    }
+    ) {}
 
     submitLogin() {
 
@@ -47,7 +44,7 @@ export class LoginComponent {
                     .then(()=> {
                         setTimeout(function() {
                             window.location.reload();
-                        }, 2000);
+                        }, 300);
                     });
             } else  {
                 this.toast.warning('Login Failed!', '', { positionClass:'toast-custom' });
