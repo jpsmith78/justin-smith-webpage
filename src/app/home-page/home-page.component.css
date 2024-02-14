@@ -15,13 +15,19 @@
 
 .header-title {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: flex-end;
     flex-grow: 2;
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
-    align-items: flex-end;
+    align-items: center;
     font-family: "Roboto";
     color: var(--seafoam-green);
-    text-shadow: 1px 1px 5px var(--indigo);
+    text-shadow: 2px 2px 5px var(--indigo);
 }
 
 .title-one {
@@ -65,24 +71,43 @@
 }
 
 .home-page-body {
-    margin: 0 5%;
+    margin: 0 5% 50px 5%;
     display: flex;
     flex-direction: row;
 }
 
 .home-page-graphic {
     display: flex;
+    flex-direction: row;
     flex-grow: 1;
-    justify-content: center;
-    padding: 2%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2% 5%;
 }
 
 .db-model {
-    width: 100%
+    width: 150%
 }
+
 .home-page-content {
     display: flex;
     flex-direction: column;
+    align-items: center;
     flex-grow: 2;
-    padding: 2%;
+    padding-top: 2%;
+    padding-left: 10%;
+    font-size: 16px;
+}
+
+.greeting {
+    font-size: 36px;
+    font-family: "Roboto";
+    background-color: var(--indigo);
+    color: var(--seafoam-green);
+    padding: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 10px;
+    margin-bottom: 30px;
 }
