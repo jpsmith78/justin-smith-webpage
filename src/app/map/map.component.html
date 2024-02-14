@@ -9,7 +9,7 @@
     </div>
 
     <svg width="959" height="593">
-        <g class="state" *ngFor="let state of user_states">
+        <g *ngFor="let state of user_states">
             <path
             (click)="selectState(state)"
             [ngClass]="{

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
-import { NgIf, NgFor } from '@angular/common';
+import { NgIf, NgFor, CommonModule } from '@angular/common';
 import { AccountService } from '../account.service';
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +12,8 @@ import { ToastrService } from 'ngx-toastr';
         ReactiveFormsModule,
         RouterLink,
         NgIf,
-        NgFor
+        NgFor,
+        CommonModule
     ],
     templateUrl: './login.component.html',
     styleUrls: ['../app.component.css', './login.component.css']

@@ -17,7 +17,7 @@
 .selected-state {
     margin: 10px;
     padding: 10px;
-    fill: rgb(38, 112, 8);
+    fill: var(--indigo);
     width: 100px;
     color: white;
 }
@@ -25,27 +25,25 @@
 .unselected-state {
     margin: 10px;
     padding: 10px;
-    fill: rgb(70, 190, 106);
+    fill: var(--teal);
     width: 100px;
     color: white;
 }
 
 .current-state-selected {
-    fill: rgba(38, 112, 8, .8) !important;
+    fill: var(--indigo);
+    filter: brightness(70%) !important;
 }
 
 .current-state-unselected {
-    fill: rgba(70, 190, 106, .8) !important;
-}
-
-.state {
-    fill:#D0D0D0
+    fill: var(--teal);
+    filter: brightness(70%) !important;
 }
 
 .borders {
-    stroke:#FFFFFF; stroke-width:1
+    stroke: var(--seafoam-green); stroke-width:2
 }
 
 .separator1 {
-    stroke:#B0B0B0; stroke-width:2
+    stroke:var(--indigo); stroke-width:2
 } 

@@ -1,13 +1,13 @@
-body {
-    font: optional;
-}
 .outer-nav {
+    background-color: var(--teal);
     display: flex;
     justify-content: space-between;
+    padding: 0 2%;
 }
 
 .inner-nav {
     display: flex;
+    align-items: center;
 }
 
 .is-hidden {
@@ -16,25 +16,53 @@ body {
 
 .button {
     box-shadow: inset 0 1px 0 0 #ffffff;
-    background: #ffffff;
+    background: var(--teal);
     border-radius: 6px;
-    border: 1px solid #dcdcdc;
+    border: 1px solid var(--indigo);
     display: inline-block;
-    color: #666666;
-    font-size: 15px;
-    font-weight: bold;
+    color: #ffffff;
+    font-size: 16px;
     padding: 6px 24px;
     text-decoration: none;
-    text-shadow: 0 1px 0 #ffffff;
     max-width: 100px;
 }
 
 .active-button {
     box-shadow: inset 0 1px 0 0 #dcecfb;
-    background: #3923a8;
-    border: 1px solid #84bbf3;
+    background: var(--indigo);
+    border: 1px solid var(--teal);
     color: #ffffff;
     text-shadow: 0 1px 0 #528ecc;
+}
+
+.submit-button {
+    box-shadow: inset 0 1px 0 0 #ffffff;
+    background: #04AA6D;
+    border-radius: 6px;
+    border: 1px solid #dcdcdc;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    width: 100px;
+    margin: auto;
+    position: relative;
+}
+
+.submit-button-disabled {
+    box-shadow: inset 0 1px 0 0 #ffffff;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #dcdcdc;
+    color: #afa1a1;
+    font-size: 18px;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    width: 100px;
+    margin: auto;
+    position: relative;
 }
 
 .toast-custom {
@@ -71,4 +99,13 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+}
+
+.user-name {
+    margin: 20px;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
-import { NgIf, NgFor } from '@angular/common';
+import { NgIf, NgFor, CommonModule } from '@angular/common';
 import { AccountService } from '../account.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -11,7 +11,8 @@ import { ToastrService } from 'ngx-toastr';
   imports: [
     ReactiveFormsModule,
     NgIf,
-    NgFor
+    NgFor,
+    CommonModule
   ],
   templateUrl: './register.component.html',
   styleUrls: ['../app.component.css', './register.component.css']
@@ -20,7 +21,6 @@ import { ToastrService } from 'ngx-toastr';
 export class RegisterComponent implements OnInit {
     user_names: string[] = [];
     emails: string[] = [];
-    response: string;
 
     register_form = this.formBuilder.group({
         user_name: ['',[ Validators.required, this.user_nameExistsValidator()]],
@@ -32,9 +32,7 @@ export class RegisterComponent implements OnInit {
         private account_service: AccountService,
         private toast: ToastrService,
         private router: Router,
-    ) {
-        this.response = '';
-    }
+    ) {}
 
     ngOnInit(): void {
         this.getAllUsers();

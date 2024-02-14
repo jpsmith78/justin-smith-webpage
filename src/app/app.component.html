@@ -6,11 +6,13 @@
             <a class="button" routerLinkActive="active-button" routerLink="/users" >users</a><br/>
         </nav>
         <nav class="inner-nav">
+            <p [ngClass]="(username == 'Guest')?'is-hidden':'user-name'">Logged in user: {{username}}</p>
             <a [ngClass]="(username == 'Guest')?'button':'is-hidden'" routerLinkActive="active-button" routerLink="/login">Login</a><br/>
             <a [ngClass]="(username == 'Guest')?'is-hidden':'button'" routerLinkActive="active-button" (click)="submitLogOut()">Log out</a><br/>
         </nav>
     </div>
-    <h1>Justin Smith Web Page</h1>
-    <h3>Hello {{username}}</h3>
     <router-outlet></router-outlet>
+    <div class="footer">
+
+    </div>
 </div>

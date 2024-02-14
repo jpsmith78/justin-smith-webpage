@@ -33,7 +33,7 @@
                 && register_form.get('email')?.hasError('unique')"
         >Email is already taken</span><br/>
 
-        <input class="button submit" type="submit" [disabled]="!register_form.valid" value="Register"/>
+        <input [ngClass]="register_form.valid?'submit-button':'submit-button-disabled'" type="submit" [disabled]="!register_form.valid" value="Register"/>
     </form>
 </div>
 

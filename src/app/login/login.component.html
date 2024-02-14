@@ -20,12 +20,12 @@
         >Email cannot be empty</span><br/>
 
 
-        <input class="button submit" type="submit" [disabled]="!login_form.valid" value="Login"/>
+        <input [ngClass]="login_form.valid?'submit-button':'submit-button-disabled'" type="submit" [disabled]="!login_form.valid" value="Login"/>
     </form>
 
     <div class="redirect">
         <div>Not signed up yet? Register Here</div>
-        <a class="button" routerLink="/register">Register</a>
+        <a class="submit-button" routerLink="/register">Register</a>
     </div>
 
 </div>
