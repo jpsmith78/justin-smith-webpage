@@ -1,7 +1,6 @@
-    import { Component, OnInit, OnChanges } from '@angular/core';
+    import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
     import { MapService } from '../map.service';
     import { State } from '../state';
-    import { ToastrService } from 'ngx-toastr';
 
     import {
         NgFor,
@@ -22,7 +21,7 @@
         templateUrl: './map.component.html',
         styleUrls: ['../app.component.css','./map.component.css'],
     })
-    export class MapComponent implements OnInit {
+    export class MapComponent implements OnInit, OnChanges {
         user_id: string | null;
         user_name: string | null;
         state_count: number;
@@ -31,8 +30,7 @@
         response: string;
 
     constructor(
-        private map_service: MapService,
-        private toast: ToastrService
+        private map_service: MapService
     ) {
         this.current_state = {code: '', name: '', coordinates: '', capital: '', largest_city: '', bird: '', flower: '', fun_fact: '',  selected: 'No'};
         this.user_states = [{code: '', name: '', coordinates: '', capital: '', largest_city: '', bird: '', flower: '', fun_fact: '', selected: 'No'}];
@@ -46,6 +44,10 @@
         this.getAllUserStates();
     }
 
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(changes);
+    }
+
     selectState(state: State) {
         if (this.user_id != null) {
             if (state.selected == 'No') {
@@ -54,11 +56,11 @@
                 this.removeUserState(this.user_id, state.code);
             }
         } else {
-            this.toast.error('Log in to play Map Game', '', { positionClass:'toast-custom' });
+            localStorage.setItem('alert', 'Log in to play Map Game');
+
         }
 
         this.current_state = state;
-        console.log(this.current_state);
         this.getAllUserStates();
     }
 
@@ -66,8 +68,6 @@
         let user_states = this.map_service.getAllUserStates(this.user_id);
         user_states.subscribe(data => this.user_states = data.body);
         this.getUserStateCount();
-        console.log(this.state_count);
-
     }
 
     getUserStateCount() {

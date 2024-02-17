@@ -3,7 +3,6 @@ import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule, Validators, V
 import { NgIf, NgFor, CommonModule } from '@angular/common';
 import { AccountService } from '../account.service';
 import { Router, RouterLink } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-login',
@@ -28,27 +27,24 @@ export class LoginComponent {
     constructor(
         private formBuilder: FormBuilder,
         private account_service: AccountService,
-        private router: Router,
-        private toast: ToastrService
-    ) {}
+        private router: Router
+    ) {
+        if (localStorage.getItem('alert') === 'Login Successful!') {
+            this.router.navigate(['/home'])
+        }
+    }
 
     submitLogin() {
-
         let login = this.account_service.loginUser(this.login_form);
         login.subscribe(data => {
             if (data.body.user_id) {
                 localStorage.setItem('user_id', data.body.user_id);
                 localStorage.setItem('user_name', data.body.user_name);
-                this.toast.success('Login Successful!', '', { positionClass:'toast-custom' });
-                this.router.navigate(['/home'])
-                    // Don't reload right away. We want the user to be able to read the success message.
-                    .then(()=> {
-                        setTimeout(function() {
-                            window.location.reload();
-                        }, 300);
-                    });
+                localStorage.setItem('alert', 'Login Successful!');
+                window.location.reload();
             } else  {
-                this.toast.warning('Login Failed!', '', { positionClass:'toast-custom' });
+                localStorage.setItem('alert', 'Login Failed!');
+                window.location.reload();
 
             }
         });

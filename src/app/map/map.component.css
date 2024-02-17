@@ -8,11 +8,37 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-bottom: 80px;
 }
 
-.info-container {
-    width: 20%;
+.states-visited {
+    border: 10px solid var(--teal);
+    width: 200px;
+    max-height: 600px;
+    margin: 0 20px;
+    overflow-x: scroll;
 }
+
+.current-state-info-container {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    border: 10px solid var(--teal);
+    margin: 0 20px;
+}
+
+.state-title { 
+    width: 100%;
+    height: 30px;
+    background-color: var(--teal);
+    color: var(--seafoam-green);
+    padding: 5% 0;
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .selected-state {
     margin: 10px;
@@ -46,4 +72,4 @@
 
 .separator1 {
     stroke:var(--indigo); stroke-width:2
-} 
+}

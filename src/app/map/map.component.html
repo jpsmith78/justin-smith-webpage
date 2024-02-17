@@ -1,11 +1,17 @@
-
+<div class="header">
+    Map Game
+</div>
 <div class="map-header">
     <h3 *ngIf="user_name">{{user_name}} has visited {{state_count}} states</h3>
+    <div *ngIf="!user_name" class="alert">Login to play Map Game</div>
 </div>
 
 <div class="map-container">
-    <div>
-        <h3>States Visited</h3>
+    <div class="states-visited">
+        <h3 class="state-title">States Visited</h3>
+        <ul *ngFor="let state of user_states">
+            <li *ngIf="state.selected === 'Yes'">{{state.name}}</li>
+        </ul>
     </div>
 
     <svg width="959" height="593">
@@ -135,14 +141,16 @@
         <path class="separator1" fill="none" d="m 215,493 v 55 l 36,45 m -251,-168 h 147 l 68,68 h 85 l 54,54 v 46"/>
     </svg>
 
-    <div class="info-container">
+    <div class="current-state-info-container">
+        <h3 class="state-title">Selected State</h3>
         <div class="current-state-info" *ngIf="current_state.code != '' ">
-            <h3>Selected State: {{current_state.name}}</h3>
+            <h3>{{current_state.name}}</h3>
             <div><b>Capital:</b>  {{current_state.capital}}</div>
             <div><b>Largest City:</b> {{current_state.largest_city}}</div>
             <div><b>State Bird:</b> {{current_state.bird}}</div>
             <div><b>State Flower:</b> {{current_state.flower}}</div>
             <div><b>Fun Fact About {{current_state.name}}:</b> {{current_state.fun_fact}}</div>
         </div>
+        <div *ngIf="current_state.code ==''">No state selected</div>
     </div>
 </div>

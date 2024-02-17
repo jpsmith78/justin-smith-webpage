@@ -1,8 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @font-face {
     font-family: "Roboto";
+    src: url("assets/fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Roboto-Bold";
     src: url("assets/fonts/Roboto/Roboto-Bold.ttf") format("truetype");
 }
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}  
 
 :root {
     --seafoam-green: #CDF4DC;
@@ -13,8 +28,11 @@
 
 body {
     background-color: var(--seaform-green);
-    font-family: Arial, sans-serif;
-    color: #272626;
+    font-family: "Roboto";
     margin: 0;
     height: 100%;
+}
+
+h1, h2, h3, h4, h5, b {
+    font-family: "Roboto-Bold";
 }

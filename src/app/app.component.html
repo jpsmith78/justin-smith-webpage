@@ -5,6 +5,7 @@
             <a class="button" routerLinkActive="active-button" routerLink="/map">Map</a><br/>
             <a class="button" routerLinkActive="active-button" routerLink="/users" >users</a><br/>
         </nav>
+        <div [ngClass]="show_message ? 'alert alert-fadeout' : 'is-hidden'">{{alert}}</div>
         <nav class="inner-nav">
             <p [ngClass]="(username == 'Guest')?'is-hidden':'user-name'">Logged in user: {{username}}</p>
             <a [ngClass]="(username == 'Guest')?'button':'is-hidden'" routerLinkActive="active-button" routerLink="/login">Login</a><br/>
@@ -13,6 +14,7 @@
     </div>
     <router-outlet></router-outlet>
     <div class="footer">
-        <p>This is a footer</p>
+        <div class="indigo-band"></div>
+        <p>Coming soon: Cat facts</p>
     </div>
 </div>

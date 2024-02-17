@@ -25,7 +25,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    font-family: "Roboto";
+    font-family: "Roboto-Bold";
     color: var(--seafoam-green);
     text-shadow: 2px 2px 5px var(--indigo);
 }
@@ -101,7 +101,7 @@
 
 .greeting {
     font-size: 36px;
-    font-family: "Roboto";
+    font-weight: bold;
     background-color: var(--indigo);
     color: var(--seafoam-green);
     padding: 3%;

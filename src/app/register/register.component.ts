@@ -3,7 +3,6 @@ import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule, Validators, V
 import { NgIf, NgFor, CommonModule } from '@angular/common';
 import { AccountService } from '../account.service';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +29,6 @@ export class RegisterComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private account_service: AccountService,
-        private toast: ToastrService,
         private router: Router,
     ) {}
 
@@ -42,11 +40,10 @@ export class RegisterComponent implements OnInit {
         let response = this.account_service.addUser(this.register_form);
         response.subscribe(data=> {
             if (data.body == 'Registration Successful') {
-                this.toast.success(data.body, '', { positionClass:'toast-custom' })
                 this.router.navigate(['/login'])
-            } else {
-                this.toast.error(data.body, '', { positionClass:'toast-custom' })
             }
+            localStorage.setItem('alert', data.body);
+            window.location.reload();
         });
 
         this.register_form.controls.user_name.reset();

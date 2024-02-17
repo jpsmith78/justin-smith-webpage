@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-root',
@@ -20,14 +19,22 @@ import { ToastrService } from 'ngx-toastr';
 
 export class AppComponent {
     username: string | null;
+    show_message: boolean | false;
+    alert: string | null;
 
-    constructor(private toast: ToastrService) {
+    constructor() {
         this.username = localStorage.getItem('user_name') ? localStorage.getItem('user_name') : 'Guest' ;
+        this.show_message = localStorage.getItem('alert') ? true : false;
+        this.alert = localStorage.getItem('alert') ? localStorage.getItem('alert') : '';
+        setTimeout(() => {
+            localStorage.removeItem('alert');
+            this.show_message = false;
+        }, 3000);
     }
 
     submitLogOut() {
         localStorage.clear();
-        this.toast.success('Log Out Successful', '', { positionClass:'toast-custom' });
+        localStorage.setItem('alert', 'Log Out Successful!');
         this.username = 'Guest';
         window.location.reload();
     }
