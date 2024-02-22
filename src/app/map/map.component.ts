@@ -1,4 +1,4 @@
-    import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+    import { Component, OnInit } from '@angular/core';
     import { MapService } from '../map.service';
     import { State } from '../state';
 
@@ -21,7 +21,7 @@
         templateUrl: './map.component.html',
         styleUrls: ['../app.component.css','./map.component.css'],
     })
-    export class MapComponent implements OnInit, OnChanges {
+    export class MapComponent implements OnInit {
         user_id: string | null;
         user_name: string | null;
         state_count: number;
@@ -44,23 +44,26 @@
         this.getAllUserStates();
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes);
+    addCurrentState(state: State) {
+        this.current_state = state;
+        this.map_service.getAllUserStates(this.user_id);
+
+    }
+
+    removeCurrentState(state: State) {
+        this.current_state = {code: '', name: '', coordinates: '', capital: '', largest_city: '', bird: '', flower: '', fun_fact: '',  selected: 'No'};
+        this.map_service.getAllUserStates(this.user_id);
+
     }
 
     selectState(state: State) {
         if (this.user_id != null) {
-            if (state.selected == 'No') {
-                this.addUserState(this.user_id, state.code);
-            } else {
+            if (state.selected === 'Yes') {
                 this.removeUserState(this.user_id, state.code);
+            } else {
+                this.addUserState(this.user_id, state.code);
             }
-        } else {
-            localStorage.setItem('alert', 'Log in to play Map Game');
-
         }
-
-        this.current_state = state;
         this.getAllUserStates();
     }
 
@@ -76,13 +79,24 @@
     }
 
     addUserState(user_id: string | null, state_id: string) {
+        console.log('click');
         let response = this.map_service.addUserState(user_id, state_id);
         response.subscribe(data=> this.response = data);
+        console.log(this.response);
+    }
+
+    addUserStateMouseDown(user_id: string | null, state_id: string) {
+        console.log('mouse');
+        let response = this.map_service.addUserState(user_id, state_id);
+        response.subscribe(data=> this.response = data);
+        console.log(this.response);
     }
 
     removeUserState(user_id: string | null, state_id: string) {
         let response = this.map_service.removeUserState(user_id, state_id);
         response.subscribe(data=> this.response = data);
+        console.log(this.response);
+
     }
 
 }

@@ -2,19 +2,18 @@
     <div class="outer-nav">
         <nav class="inner-nav">
             <a class="button" routerLinkActive="active-button" routerLink="/home">Home</a><br/>
-            <a class="button" routerLinkActive="active-button" routerLink="/map">Map</a><br/>
-            <a class="button" routerLinkActive="active-button" routerLink="/users" >users</a><br/>
+            <a class="button" routerLinkActive="active-button" routerLink="/map">Map Game</a><br/>
+            <!-- <a class="button" routerLinkActive="active-button" routerLink="/users" >users</a><br/> -->
         </nav>
-        <div [ngClass]="show_message ? 'alert alert-fadeout' : 'is-hidden'">{{alert}}</div>
+        <div [ngClass]="show_message ? 'alert' : 'is-hidden'">{{alert}}</div>
         <nav class="inner-nav">
-            <p [ngClass]="(username == 'Guest')?'is-hidden':'user-name'">Logged in user: {{username}}</p>
+            <p [ngClass]="(username == 'Guest')?'is-hidden':'logged-in-alert'">Logged in user: {{username}}</p>
             <a [ngClass]="(username == 'Guest')?'button':'is-hidden'" routerLinkActive="active-button" routerLink="/login">Login</a><br/>
             <a [ngClass]="(username == 'Guest')?'is-hidden':'button'" routerLinkActive="active-button" (click)="submitLogOut()">Log out</a><br/>
         </nav>
     </div>
     <router-outlet></router-outlet>
     <div class="footer">
-        <div class="indigo-band"></div>
         <p>Coming soon: Cat facts</p>
     </div>
 </div>
