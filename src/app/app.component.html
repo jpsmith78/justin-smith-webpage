@@ -1,4 +1,19 @@
 <div>
-  <h1>Hello World</h1>
-  <h2>You are great</h2>
+    <div class="outer-nav">
+        <nav class="inner-nav">
+            <a class="button" routerLinkActive="active-button" routerLink="/home">Home</a><br/>
+            <a class="button" routerLinkActive="active-button" routerLink="/map">Map Game</a><br/>
+            <!-- <a class="button" routerLinkActive="active-button" routerLink="/users" >users</a><br/> -->
+        </nav>
+        <div [ngClass]="show_message ? 'alert' : 'is-hidden'">{{alert}}</div>
+        <nav class="inner-nav">
+            <p [ngClass]="(username == 'Guest')?'is-hidden':'logged-in-alert'">Logged in user: {{username}}</p>
+            <a [ngClass]="(username == 'Guest')?'button':'is-hidden'" routerLinkActive="active-button" routerLink="/login">Login</a><br/>
+            <a [ngClass]="(username == 'Guest')?'is-hidden':'button'" routerLinkActive="active-button" (click)="submitLogOut()">Log out</a><br/>
+        </nav>
+    </div>
+    <router-outlet></router-outlet>
+    <div class="footer">
+        <p>Coming soon: Cat facts</p>
+    </div>
 </div>
