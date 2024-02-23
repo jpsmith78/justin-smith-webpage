@@ -1,18 +1,21 @@
-<div>
-    <h3>Register New User</h3>
-    <form [formGroup]="register_form" (ngSubmit)="onSubmit()">
-        <label for="username">User Name</label><br/>
-        <input id="username" type="text" formControlName="username" placeholder="Username"><br/>
+<div class="header">Register New User</div>
+<div class="lower-nav-bar">
+    <h3>The email is only for validation. Use a fake one if you like.</h3>
+</div>
+<div class="form-container">
+    <form class="login-form" [formGroup]="register_form" (ngSubmit)="submitRegistration()">
+        <label for="user_name">User Name</label><br/>
+        <input id="user_name" type="text" formControlName="user_name" placeholder="User Name"><br/>
 
         <span class="text-danger" 
-            *ngIf="register_form.get('username')?.errors && 
-            register_form.get('username')?.hasError('unique')"
-        >Username already taken</span>
+            *ngIf="register_form.get('user_name')?.errors && 
+            register_form.get('user_name')?.hasError('unique')"
+        >User Name already taken</span>
         <span class="text-danger" 
-            *ngIf="register_form.get('username')?.errors 
-                && register_form.get('username')?.dirty 
-                && register_form.get('username')?.hasError('required')"
-        >Please enter Username</span><br/>
+            *ngIf="register_form.get('user_name')?.errors 
+                && register_form.get('user_name')?.dirty 
+                && register_form.get('user_name')?.hasError('required')"
+        >User Name cannot be empty</span><br/>
 
         <label for="email">Email</label><br/>
         <input type="email" formControlName="email" placeholder="Email"><br/>
@@ -26,18 +29,14 @@
             *ngIf="register_form.get('email')?.errors 
                 && register_form.get('email')?.dirty 
                 && register_form.get('email')?.hasError('required')"
-        >Please enter Email</span>
+        >Email cannot be empty</span>
         <span class="text-danger" 
             *ngIf="register_form.get('email')?.errors 
                 && register_form.get('email')?.dirty 
                 && register_form.get('email')?.hasError('unique')"
-        >Email already taken</span><br/>
+        >Email is already taken</span><br/>
 
-        <input type="submit" [disabled]="!register_form.valid" value="Register"/>
-
+        <input [ngClass]="register_form.valid?'submit-button':'submit-button-disabled'" type="submit" [disabled]="!register_form.valid" value="Register"/>
     </form>
-
-    <div *ngIf="response">{{response}}</div>
-    <a *ngIf="response == 'registration successful'" href="/login">Go to Login Page</a>
 </div>
 

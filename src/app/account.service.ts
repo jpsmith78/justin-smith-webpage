@@ -11,14 +11,17 @@ export class AccountService {
 
     constructor(private http: HttpClient) { }
 
-
     addUser(params: FormGroup) {
         const config = {headers: {"Content-Type": "text/plain"}}
-        return this.http.put<any>(`${this.base_url}/users/adduser?username=${params.value.username}&email=${params.value.email}`, config, {observe: 'response'});
+        return this.http.put<any>(`${this.base_url}/users/adduser?user_name=${params.value.user_name}&email=${params.value.email}`, config, {observe: 'response'});
     }
 
     getAllUsers() {
         return this.http.get<any>(`${this.base_url}/users/getallusers`, {observe: 'response'});
+    }
+
+    loginUser(params: FormGroup) {
+        return this.http.get<any>(`${this.base_url}/users/getuser?user_name=${params.value.user_name}&email=${params.value.email}`, {observe: 'response'});
     }
 
 }
