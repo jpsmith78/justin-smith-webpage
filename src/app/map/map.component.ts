@@ -46,14 +46,13 @@
 
     addCurrentState(state: State) {
         this.current_state = state;
-        this.map_service.getAllUserStates(this.user_id);
+        this.getAllUserStates();
 
     }
 
-    removeCurrentState(state: State) {
+    removeCurrentState() {
         this.current_state = {code: '', name: '', coordinates: '', capital: '', largest_city: '', bird: '', flower: '', fun_fact: '',  selected: 'No'};
-        this.map_service.getAllUserStates(this.user_id);
-
+        this.getAllUserStates();
     }
 
     selectState(state: State) {
@@ -64,7 +63,6 @@
                 this.addUserState(this.user_id, state.code);
             }
         }
-        this.getAllUserStates();
     }
 
     getAllUserStates() {
@@ -79,23 +77,13 @@
     }
 
     addUserState(user_id: string | null, state_id: string) {
-        console.log('click');
         let response = this.map_service.addUserState(user_id, state_id);
         response.subscribe(data=> this.response = data);
-        console.log(this.response);
-    }
-
-    addUserStateMouseDown(user_id: string | null, state_id: string) {
-        console.log('mouse');
-        let response = this.map_service.addUserState(user_id, state_id);
-        response.subscribe(data=> this.response = data);
-        console.log(this.response);
     }
 
     removeUserState(user_id: string | null, state_id: string) {
         let response = this.map_service.removeUserState(user_id, state_id);
         response.subscribe(data=> this.response = data);
-        console.log(this.response);
 
     }
 

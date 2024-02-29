@@ -62,6 +62,12 @@
 
 .link {
     margin: 0 2%;
+    color: var(--seafoam-green);
+    text-decoration: none;
+}
+
+.link:active {
+    transform: translateY(2px);
 }
 
 .home-page-body {
