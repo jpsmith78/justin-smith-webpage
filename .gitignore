@@ -2,6 +2,7 @@
 
 # Project Files
 /backend-src/etc/Configuration.php
+/src/environments/*
 
 # Compiled output
 /dist
