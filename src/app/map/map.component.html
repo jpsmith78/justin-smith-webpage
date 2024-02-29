@@ -37,11 +37,11 @@
     </div>
 
 
-    <svg width="1000" height="600">
+    <svg (mouseleave)="removeCurrentState()">
         <g *ngFor="let state of user_states">
             <path
             (mouseenter)="addCurrentState(state)"
-            (mouseleave)="removeCurrentState(state)"
+            (mouseleave)="removeCurrentState()"
             (mousedown)="selectState(state)"
             [ngClass]="{
                 'selected-state':state.selected === 'Yes',

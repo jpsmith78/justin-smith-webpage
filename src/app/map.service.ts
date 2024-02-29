@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { State } from './state';
 import { Observable } from 'rxjs';
-
-// import { map } from 'rxjs/operators';
+import { environment } from './../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class MapService {
-  base_url = 'http://localhost:8888/public';
+  base_url = environment.api_url;
 
   constructor(private http: HttpClient) {}
 

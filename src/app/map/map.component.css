@@ -5,6 +5,12 @@
     margin-bottom: 80px;
 }
 
+svg {
+    width: 1000px; 
+    height: 600px;
+}
+
+
 .lower-nav-bar {
     height: 40px;
     justify-content: center;
