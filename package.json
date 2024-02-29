@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/build-optimizer": "^0.1302.1",
     "@angular/animations": "^17.0.8",
     "@angular/common": "^17.0.8",
     "@angular/compiler": "^17.0.8",
