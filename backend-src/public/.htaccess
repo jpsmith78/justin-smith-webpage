@@ -2,11 +2,12 @@
   Header set Access-Control-Allow-Origin *
   Header set Access-Control-Allow-Methods "GET,PUT,POST,DELETE"
   Header set Access-Control-Allow-Headers "Content-Type, Authorization"
-  Options -Multiviews
-  RewriteEngine On
-  RewriteBase /public
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteRule  ^(.+)$ index.php?url=$1 [QSA,L]
 </IfModule>
 
+Options +Indexes
+Options -Multiviews
+RewriteEngine On
+RewriteBase /public
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule  ^(.+)$ index.php?url=$1 [QSA,L]
