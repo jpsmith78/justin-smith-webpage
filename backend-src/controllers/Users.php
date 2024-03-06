@@ -7,9 +7,9 @@ class Users extends Controller {
         $this->db = new Database();
     }
 
-    public function getUser($username, $email) {
+    public function getUser($user_name, $email) {
         $params = [
-            $username,
+            $user_name,
             $email
         ];
         

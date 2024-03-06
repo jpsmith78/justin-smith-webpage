@@ -39,11 +39,16 @@ export class RegisterComponent implements OnInit {
     submitRegistration() {
         let response = this.account_service.addUser(this.register_form);
         response.subscribe(data=> {
+            localStorage.setItem('alert', data.body);
+
             if (data.body == 'Registration Successful') {
                 this.router.navigate(['/login'])
+                    .then(() => {
+                        window.location.reload();
+                });
+            } else {
+                window.location.reload();
             }
-            localStorage.setItem('alert', data.body);
-            window.location.reload();
         });
 
         this.register_form.controls.user_name.reset();

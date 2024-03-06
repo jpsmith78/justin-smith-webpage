@@ -1,71 +1,57 @@
 <?php
 
 class Application {
-    protected $current_controller;
-    protected $current_method;
-    protected $params = [];
+    protected string $current_controller_name = '';
+    protected ?object $current_controller;
+    protected string $current_method = '';
+    protected array $params = [];
 
     public function __construct() {
-        $url = $this->getUrl();
-
+        $params = $this->getParams();
         $base_route = dirname(__DIR__);
 
-        if ($url) {
+        if ($this->current_controller_name && $this->current_method) {
+
             // Look in controllers for first value
-            if(file_exists($base_route . '/controllers/' . ucwords($url[0]). '.php')){
-                // If exists, set as controller
-                $this->current_controller = ucwords($url[0]);
-                // Unset 0 Index
-                unset($url[0]);
-            }
-        
-            // Require the controller
-            require_once '../controllers/'. $this->current_controller . '.php';
-        
-            // Instantiate controller class
-            $this->current_controller = new $this->current_controller;
-        
-            // Check for second part of url
-            if(isset($url[1])){
+            if(file_exists($base_route . '/controllers/' . $this->current_controller_name . '.php')){
+                // Require the controller
+                require_once $base_route . '/controllers/'. $this->current_controller_name . '.php';
+    
+                // Instantiate controller class
+                $this->current_controller = new $this->current_controller_name;
                 // Check to see if method exists in controller
-                if(method_exists($this->current_controller, $url[1])){
-                $this->current_method = $url[1];
-                // Unset 1 index
-                unset($url[1]);
+                if(method_exists($this->current_controller, $this->current_method)){
+                    // Call a callback with array of params
+                    call_user_func_array([$this->current_controller, $this->current_method], $params);
+                } else {
+                    echo 'invalid method provided';
                 }
+
+            } else {
+                echo 'invalid controller provided';
             }
         
-            // Get params
-            $this->params = $this->getParams();
-            // var_dump(($this->params)); exit();
-            // Call a callback with array of params
-            call_user_func_array([$this->current_controller, $this->current_method], $this->params);
         } else {
-            echo 'no url provided';
+            echo 'no parameters provided';
         }
 
-    }
-
-    public function getUrl(){
-        if(isset($_REQUEST['url'])){
-            $url = rtrim($_REQUEST['url'], '/');
-            $url = filter_var($url, FILTER_SANITIZE_URL);
-            $url = explode('/', $url);
-            return $url;
-        } else {
-            return NULL;
-        }
     }
 
     public function getParams() {
-      $params = [];
+      $params = $_REQUEST ?? [];
 
-      foreach($_REQUEST as $param_key => $param_value) {
-        if ($param_key == 'url') {
-          continue;
-        }
+      if (isset($params['url'])) {
+        unset($params['url']);
+      }
 
-        $params[] = $param_value;
+      if (isset($params['controller'])) {
+        $this->current_controller_name = ucwords($params['controller']);
+        unset($params['controller']);
+      }
+
+      if (isset($params['method'])) {
+        $this->current_method = $params['method'];
+        unset($params['method']);
       }
 
       return $params;
