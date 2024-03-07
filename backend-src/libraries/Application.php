@@ -1,5 +1,7 @@
 <?php
 
+header('Access-Control-Allow-Origin: *');
+
 class Application {
     protected string $current_controller_name = '';
     protected ?object $current_controller;
