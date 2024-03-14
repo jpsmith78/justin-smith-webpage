@@ -57,6 +57,10 @@
     border-top: 8px solid var(--rose-red);
 }
 
+.catfact {
+    margin: 10px;
+}
+
 .logged-in-alert {
     margin: 0 20px;
     background-color: var(--rose-red);
@@ -183,4 +187,14 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+@media (max-width: 600px) {
+    .outer-nav {
+        flex-wrap: wrap;
+    }
+
+    .logged-in-alert {
+        margin: 5px;
+    }
 }

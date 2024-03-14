@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { AccountService } from './account.service';
 
 @Component({
     selector: 'app-root',
@@ -17,19 +18,25 @@ import { HttpClientModule } from '@angular/common/http';
     styleUrl: './app.component.css'
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
     username: string | null;
     show_message: boolean | false;
     alert: string | null;
+    catfact: string | null;
 
-    constructor() {
+    constructor(private account_service: AccountService) {
         this.username = localStorage.getItem('user_name') ? localStorage.getItem('user_name') : 'Guest' ;
         this.show_message = localStorage.getItem('alert') ? true : false;
         this.alert = localStorage.getItem('alert') ? localStorage.getItem('alert') : '';
+        this.catfact = '';
         setTimeout(() => {
             localStorage.removeItem('alert');
             this.show_message = false;
         }, 3000);
+    }
+
+    ngOnInit(): void {
+        this.getCatFact();
     }
 
     submitLogOut() {
@@ -38,5 +45,11 @@ export class AppComponent {
         this.username = 'Guest';
         window.location.reload();
     }
+
+    getCatFact() {
+        let catfact = this.account_service.getCatFact();
+        catfact.subscribe(data => {this.catfact = data.body.fact});
+    }
+    
 
 }

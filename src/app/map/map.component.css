@@ -10,27 +10,10 @@ svg {
     height: 600px;
 }
 
-
 .lower-nav-bar {
     height: 40px;
     justify-content: center;
     align-items: center;
-}
-
-.states-visited-container {
-    border: 1px solid var(--teal);
-    box-shadow: 0px 1px 1px var(--indigo);    width: 100%;
-    max-height: fit-content;
-    margin: 0 20px;
-}
-
-.states-visited {
-    height: 200px;
-    overflow-x: scroll;
-}
- 
-ul {
-    list-style-type: none;
 }
 
 .state-info-container {
@@ -43,10 +26,10 @@ ul {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 350px;
+    height: 450px;
     border: 1px solid var(--teal);
     box-shadow: 0px 1px 1px var(--indigo);
-    margin: 0 20px 20px 20px;
+    margin: 20px;
 }
 
 .current-state-info {
@@ -108,10 +91,37 @@ ul {
     transform: translateY(5px);
 }
 
-.borders {
+.borders, .separator1 {
     stroke: var(--seafoam-green); stroke-width:2
 }
 
-.separator1 {
-    stroke:var(--indigo); stroke-width:2
+@media (max-width: 600px) {
+    .map-container {
+        flex-direction: column;
+        overflow: scroll;
+    }
+
+    .state-info-container {
+        position: sticky;
+        left: 0;
+        flex-direction: row;
+        margin-bottom: 5vh;
+        width: fit-content;
+        height: 30vh;
+    }
+
+    .current-state-info-container {
+        font-size: 18px;
+        height: 30vh;
+        width: 100vw;
+    }
+
+    .current-state-info {
+        overflow-x: scroll;
+    }
+
+    .states-visited-container {
+        height: 30vh;
+        width: 80vw;
+    }
 }

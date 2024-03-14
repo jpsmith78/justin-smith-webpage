@@ -25,4 +25,8 @@ export class AccountService {
         return this.http.get<any>(`${this.base_url}/?controller=users&method=getuser&user_name=${params.value.user_name}&email=${params.value.email}`, {observe: 'response'});
     }
 
+    getCatFact() {
+        return this.http.get<any>(`https://catfact.ninja/fact`, {observe: 'response'})
+    }
+
 }
