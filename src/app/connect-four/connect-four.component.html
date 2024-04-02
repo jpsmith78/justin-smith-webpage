@@ -1,0 +1,18 @@
+<p>connect-four motherfucker!</p>
+<div (click)="startGame()">start game</div>
+<div>{{message}}</div>
+<h1 *ngIf="game_on">{{player}} turn</h1>
+<div class="game-board">
+    <div class="board-row" *ngFor="let row of game_board" (click)="playTurn(row)">
+        <div *ngFor="let square of row"
+            [ngClass]="{
+                'board-square':square === 'open',
+                'red-square': (square === 'player' && first_turn) || (square === 'opponent' && !first_turn),
+                'yellow-square': (square === 'player' && !first_turn) || (square === 'opponent' && first_turn),
+            }"
+            >
+            <div>{{square}}</div>
+        </div>
+    </div>
+</div>
+
