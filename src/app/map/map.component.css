@@ -95,7 +95,7 @@ svg {
     stroke: var(--seafoam-green); stroke-width:2
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
     .map-container {
         flex-direction: column;
         overflow: scroll;
@@ -107,13 +107,14 @@ svg {
         flex-direction: row;
         margin-bottom: 5vh;
         width: fit-content;
-        height: 30vh;
+        height: fit-content;
     }
 
     .current-state-info-container {
         font-size: 18px;
-        height: 30vh;
-        width: 100vw;
+        height: 300px;
+        margin: 5vw;
+        width: 90vw;
     }
 
     .current-state-info {

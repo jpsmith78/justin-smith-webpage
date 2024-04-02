@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
     emails: string[] = [];
 
     register_form = this.formBuilder.group({
-        user_name: ['',[ Validators.required, this.user_nameExistsValidator()]],
+        user_name: ['',[ Validators.required, this.userNameExistsValidator()]],
         email: ['', [Validators.email, Validators.required, this.emailExistsValidator()]]
     });
 
@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
         });
     }
 
-    user_nameExistsValidator(): ValidatorFn {
+    userNameExistsValidator(): ValidatorFn {
         return (control:AbstractControl) : ValidationErrors | null => {
             const user_name = control.value;
 

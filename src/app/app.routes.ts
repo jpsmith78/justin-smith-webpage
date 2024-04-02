@@ -15,9 +15,9 @@ export const routes: Route[] = [
         .then(mod => mod.HomePageComponent)
     },
     {
-        path: 'users',
-        loadComponent: () => import('./users/users.component')
-        .then(mod => mod.UsersComponent)
+        path: 'connect-four',
+        loadComponent: () => import('./connect-four/connect-four.component')
+        .then(mod => mod.ConnectFourComponent)
     },
     {
         path: 'register',
