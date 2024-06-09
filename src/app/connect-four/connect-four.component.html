@@ -1,16 +1,20 @@
 <p>connect-four motherfucker!</p>
-<div (click)="startGame()">start game</div>
+<div *ngIf="!game_in_progress" (click)="startGame()">start game</div>
 <div>{{message}}</div>
-<h1 *ngIf="game_on">{{player}} turn</h1>
+
+<div *ngIf="game_won">
+    <div>End Game</div>
+    <div (click)="endGame()">OK</div>
+</div>
+<h1 *ngIf="game_in_progress && !game_won">{{player}} turn</h1>
 <div class="game-board">
-    <div class="board-row" *ngFor="let row of game_board" (click)="playTurn(row)">
+    <div class="board-row" *ngFor="let row of game_board" (click)="player_turn ? playTurn(row) : false">
         <div *ngFor="let square of row"
             [ngClass]="{
                 'board-square':square === 'open',
                 'red-square': (square === 'player' && first_turn) || (square === 'opponent' && !first_turn),
                 'yellow-square': (square === 'player' && !first_turn) || (square === 'opponent' && first_turn),
-            }"
-            >
+            }">
             <div>{{square}}</div>
         </div>
     </div>
