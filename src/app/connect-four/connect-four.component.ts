@@ -155,74 +155,90 @@ export class ConnectFourComponent implements DoCheck{
             for (let j = 0; j < this.game_board[i].length; j++) {
                 if (this.game_board[i][0] === 'open' && !move_taken) {
                     for (let player of ['opponent', 'player']) {
-                        if (this.game_board[i][j] === 'open' &&
-                            ((
-                                // vertical 3 in a row.
-                                this.game_board[i][j + 1] === player &&
-                                this.game_board[i][j + 2] === player &&
-                                this.game_board[i][j + 3] === player
-                            ) || (
-                                // horizontal 3 in a row.
-                                (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j] ===  player) &&
-                                (typeof this.game_board[i + 2] !== 'undefined' && this.game_board[i + 2][j] ===  player) &&
-                                (typeof this.game_board[i + 3] !== 'undefined' && this.game_board[i + 3][j] === player)
-                            ) || (
-                                (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j] ===  player) &&
-                                (typeof this.game_board[i - 2] !== 'undefined' && this.game_board[i - 2][j] ===  player) &&
-                                (typeof this.game_board[i - 3] !== 'undefined' && this.game_board[i - 3][j] === player)
-                            ) || (
-                                (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j] ===  player) &&
-                                (typeof this.game_board[i + 2] !== 'undefined' && this.game_board[i + 2][j] ===  player) &&
-                                (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j] === player)
-                            ) || (
-                                (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j] ===  player) &&
-                                (typeof this.game_board[i - 2] !== 'undefined' && this.game_board[i - 2][j] ===  player) &&
-                                (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j] === player)
-                            ) || (
-                                // diagonal 3 in a row.
-                                (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j + 1] ===  player) &&
-                                (typeof this.game_board[i + 2] !== 'undefined' && this.game_board[i + 2][j + 2] ===  player) &&
-                                (typeof this.game_board[i + 3] !== 'undefined' && this.game_board[i + 3][j + 3] === player)
-                            ) || (
-                                (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j - 1] ===  player) &&
-                                (typeof this.game_board[i + 2] !== 'undefined' && this.game_board[i + 2][j - 2] ===  player) &&
-                                (typeof this.game_board[i + 3] !== 'undefined' && this.game_board[i + 3][j - 3] === player)
-                            ) || (
-                                (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j + 1] ===  player) &&
-                                (typeof this.game_board[i - 2] !== 'undefined' && this.game_board[i - 2][j + 2] ===  player) &&
-                                (typeof this.game_board[i - 3] !== 'undefined' && this.game_board[i - 3][j + 3] === player)
-                            ) || (
-                                (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j - 1] ===  player) &&
-                                (typeof this.game_board[i - 2] !== 'undefined' && this.game_board[i - 2][j - 2] ===  player) &&
-                                (typeof this.game_board[i - 3] !== 'undefined' && this.game_board[i - 3][j - 3] === player)
-                            ) || (
-                                // diagonal 3 in a row.
-                                (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j + 1] ===  player) &&
-                                (typeof this.game_board[i + 2] !== 'undefined' && this.game_board[i + 2][j + 2] ===  player) &&
-                                (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j - 1] === player)
-                            ) || (
-                                (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j - 1] ===  player) &&
-                                (typeof this.game_board[i + 2] !== 'undefined' && this.game_board[i + 2][j - 2] ===  player) &&
-                                (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j + 1] === player)
-                            ) || (
-                                (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j + 1] ===  player) &&
-                                (typeof this.game_board[i - 2] !== 'undefined' && this.game_board[i - 2][j + 2] ===  player) &&
-                                (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j - 1] === player)
-                            ) || (
-                                (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j - 1] ===  player) &&
-                                (typeof this.game_board[i - 2] !== 'undefined' && this.game_board[i - 2][j - 2] ===  player) &&
-                                (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j + 1] === player)
-                            ))                        
-                        )
-                        {
-                            if (player == 'opponent') {
-                                console.log(i);
-                                this.opponent_move_conditions['opponent_three_in_a_row'] = i;
-                            } else {
-                                this.opponent_move_conditions['player_three_in_a_row'] = i;
+                        if (this.game_board[i][j] === 'open') {
+                            if 
+                            (
+                                (
+                                    // vertical 3 in a row.
+                                    this.game_board[i][j + 1] === player &&
+                                    this.game_board[i][j + 2] === player &&
+                                    this.game_board[i][j + 3] === player
+                                ) || 
+                                (
+
+                                    (
+                                        // Make sure we're not building a pile to help the player.
+                                        typeof this.game_board[i][j - 1] === 'undefined' ||
+                                        this.game_board[i][j - 1] !== 'open'
+                                    ) && 
+                                    (
+                                        (
+                                            // horizontal 3 in a row.
+                                            (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j] ===  player) &&
+                                            (typeof this.game_board[i + 2] !== 'undefined' && this.game_board[i + 2][j] ===  player) &&
+                                            (typeof this.game_board[i + 3] !== 'undefined' && this.game_board[i + 3][j] === player)
+                                        ) || (
+                                            (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j] ===  player) &&
+                                            (typeof this.game_board[i - 2] !== 'undefined' && this.game_board[i - 2][j] ===  player) &&
+                                            (typeof this.game_board[i - 3] !== 'undefined' && this.game_board[i - 3][j] === player)
+                                        ) || (
+                                            // horizontal 3 broken up.
+                                            (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j] ===  player) &&
+                                            (typeof this.game_board[i + 2] !== 'undefined' && this.game_board[i + 2][j] ===  player) &&
+                                            (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j] === player)
+                                        ) || (
+                                            (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j] ===  player) &&
+                                            (typeof this.game_board[i - 2] !== 'undefined' && this.game_board[i - 2][j] ===  player) &&
+                                            (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j] === player)
+                                        ) || (
+                                            // diagonal 3 in a row.
+                                            (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j + 1] ===  player) &&
+                                            (typeof this.game_board[i + 2] !== 'undefined' && this.game_board[i + 2][j + 2] ===  player) &&
+                                            (typeof this.game_board[i + 3] !== 'undefined' && this.game_board[i + 3][j + 3] === player)
+                                        ) || (
+                                            (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j - 1] ===  player) &&
+                                            (typeof this.game_board[i + 2] !== 'undefined' && this.game_board[i + 2][j - 2] ===  player) &&
+                                            (typeof this.game_board[i + 3] !== 'undefined' && this.game_board[i + 3][j - 3] === player)
+                                        ) || (
+                                            (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j + 1] ===  player) &&
+                                            (typeof this.game_board[i - 2] !== 'undefined' && this.game_board[i - 2][j + 2] ===  player) &&
+                                            (typeof this.game_board[i - 3] !== 'undefined' && this.game_board[i - 3][j + 3] === player)
+                                        ) || (
+                                            (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j - 1] ===  player) &&
+                                            (typeof this.game_board[i - 2] !== 'undefined' && this.game_board[i - 2][j - 2] ===  player) &&
+                                            (typeof this.game_board[i - 3] !== 'undefined' && this.game_board[i - 3][j - 3] === player)
+                                        ) || (
+                                            // diagonal 3 broken up.
+                                            (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j + 1] ===  player) &&
+                                            (typeof this.game_board[i + 2] !== 'undefined' && this.game_board[i + 2][j + 2] ===  player) &&
+                                            (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j - 1] === player)
+                                        ) || (
+                                            (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j - 1] ===  player) &&
+                                            (typeof this.game_board[i + 2] !== 'undefined' && this.game_board[i + 2][j - 2] ===  player) &&
+                                            (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j + 1] === player)
+                                        ) || (
+                                            (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j + 1] ===  player) &&
+                                            (typeof this.game_board[i - 2] !== 'undefined' && this.game_board[i - 2][j + 2] ===  player) &&
+                                            (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j - 1] === player)
+                                        ) || (
+                                            (typeof this.game_board[i - 1] !== 'undefined' && this.game_board[i - 1][j - 1] ===  player) &&
+                                            (typeof this.game_board[i - 2] !== 'undefined' && this.game_board[i - 2][j - 2] ===  player) &&
+                                            (typeof this.game_board[i + 1] !== 'undefined' && this.game_board[i + 1][j + 1] === player)
+                                        )
+                                    )
+                                )        
+                            )
+                            {
+                                if (player == 'opponent') {
+                                    console.log(i);
+                                    this.opponent_move_conditions['opponent_three_in_a_row'] = i;
+                                } else {
+                                    this.opponent_move_conditions['player_three_in_a_row'] = i;
+                                }
+        
                             }
-    
                         }
+                 
                     }
                      
                 }
