@@ -20,6 +20,11 @@ export const routes: Route[] = [
         .then(mod => mod.ConnectFourComponent)
     },
     {
+        path: 'book-list',
+        loadComponent: () => import('./book-list/book-list.component')
+        .then(mod => mod.BookListComponent)
+    },
+    {
         path: 'register',
         loadComponent: () => import('./register/register.component')
         .then(mod => mod.RegisterComponent)
