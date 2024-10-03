@@ -3,8 +3,10 @@
     <p>{{book.title}}</p>
     <ul>
         <li>{{book.authors}}</li>
-        <li>{{book.first_published_year}}</li>
-        <li>{{book.key}}</li>
+        <li>Published: {{book.publish_year}}</li>
+        <li>Page Count: {{book.page_count}}</li>
+        <li>{{book.description}}</li>
+        <img src="../../assets/images/book-covers/{{book.cover_id}}-L.jpg">
     </ul>
 </div>
 

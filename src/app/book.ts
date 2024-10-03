@@ -1,9 +1,10 @@
 export interface Book {
-    key: string | '';
+    book_id: string | '';
+    cover_id: string | ''
     title: string | '';
     authors: string | '';
     categories: string | '';
     page_count: number | 0;
-    first_published_year: number | 0;
-    description: string | '';
+    publish_year: number | 0;
+    description:  string | '';
 }
