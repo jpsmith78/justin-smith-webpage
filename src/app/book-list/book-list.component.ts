@@ -19,11 +19,11 @@ import {
     LowerCasePipe
   ],
   templateUrl: './book-list.component.html',
-  styleUrl: './book-list.component.css'
+  styleUrls: ['../app.component.css','./book-list.component.css'],
 })
 
 export class BookListComponent implements OnInit{
-
+    user_name: string | null;
     current_book: Book;
     all_books: Book[] | null;
     result_count: number;
@@ -32,6 +32,7 @@ export class BookListComponent implements OnInit{
         this.current_book = {book_id: '', cover_id: '', title: '', authors: '', categories: '', page_count: 0, publish_year: 0, description: ''};
         this.all_books = [{book_id: '', cover_id: '', title: '', authors: '', categories: '', page_count: 0, publish_year: 0, description: ''}];
         this.result_count = 0;
+        this.user_name = localStorage.getItem('user_name');
     }
 
     ngOnInit(): void {
@@ -56,12 +57,19 @@ export class BookListComponent implements OnInit{
                 }
 
                 this.all_books?.push(temp_book);
-                console.log(book.cover_id);
 
             }
             // The first index is empty. Get rid of it.
-            this.all_books?.splice(0,1);                
+            this.all_books?.splice(0,1);      
+            console.log(this.all_books);          
         });
+    }
+
+    showDetails(book_id: string) {
+        var book_details = document.getElementById(book_id);
+        if (book_details) {
+            book_details.classList.toggle('is-hidden');
+        }
     }
 
 }

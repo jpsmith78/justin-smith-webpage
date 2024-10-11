@@ -1,0 +1,52 @@
+.outer-container {
+    width: 90%;
+    margin: auto;
+    padding-bottom: 100px;
+}
+
+.book-list {
+    margin: auto;
+    width: 80%;
+    display: flex;
+}
+
+.book {
+    display: flex;
+    flex-direction: row;
+}
+
+.book-title {
+    margin-top: 10px;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+}
+
+.book-details {
+    display: flex;
+    flex-direction: row;
+}
+
+.book-description {
+    width: 400px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.is-hidden {
+    display: none;
+}
+
+
+
+.show-details-button {
+    margin: 0;
+    background-color: var(--indigo);
+    color: var(--seafoam-green);
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    border: var(--seafoam-green);
+    border-radius: 6px;
+}

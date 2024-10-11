@@ -46,15 +46,8 @@ export class BookListService {
     getBookCover(cover_id: string) {
         return this.http.get<any>(`https://covers.openlibrary.org/b/id/${cover_id}-M.jpg`, {observe: 'response'});
     }
-
-    // get id and make request to get details
-    // https://openlibrary.org/works/OL81613W.json
-    // details can be used to suss out what collection a short story may be in.
+    
 }
 
-// https://openlibrary.org/search/authors.json?q=stephen+AND+king&title=it
-// https://openlibrary.org/search/authors.json?q=stephen+king&sort=work_count+desc&limit=1
-
-// https://openlibrary.org/authors/OL2162284A/works.json?limit=1000&sort=old
 
 

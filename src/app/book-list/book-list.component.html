@@ -1,17 +1,37 @@
-<p>book-list works!</p>
-<div *ngFor="let book of all_books">
-    <p>{{book.title}}</p>
-    <ul>
-        <li>{{book.authors}}</li>
-        <li>Published: {{book.publish_year}}</li>
-        <li>Page Count: {{book.page_count}}</li>
-        <li>{{book.description}}</li>
-        <img src="../../assets/images/book-covers/{{book.cover_id}}-L.jpg">
-    </ul>
+<div class="header">
+    Stephen King Books
+</div>
+<div class="lower-nav-bar">
+    <p>{{user_name}}</p>
 </div>
 
-<div>
-    Narwhal cronut DSA bushwick. PBR&B normcore shaman paleo ascot. Bespoke deep v ennui intelligentsia, kinfolk tilde selvage gluten-free affogato schlitz +1 wayfarers man braid austin. Humblebrag keffiyeh typewriter roof party authentic offal cray vinyl knausgaard you probably haven't heard of them jawn.
+<div class="outer-container">
+    <p>TODO</p>
+    <p>change page color</p>
+    <p>search bar - jump to title, jump to collection if short story entered</p>
+    <p>check off read/reading - owned?</p>
+    <p>compare to other users</p>
+    <p>add sorting by category</p>
+    <p>open/close all descriptions</p>
+    
+    <div class="book-list" *ngFor="let book of all_books">
+        <div class="book">
+            <div class="book-title">
+                <p>{{book.title}} - {{book.publish_year}}</p>
+                <button class="show-details-button" (click)="showDetails(book.book_id)">Show Details</button>
+            </div>
+            <div class="book-details is-hidden" id="{{book.book_id}}">
+                <ul class="book-description">
+                    <li>Author: {{book.authors}}</li>
+                    <li>Published: {{book.publish_year}}</li>
+                    <li>Page Count: {{book.page_count}}</li>
+                    <li>{{book.description}}</li>
+                </ul>
+                <img src="../../assets/images/book-covers/{{book.cover_id}}-L.jpg">
+            </div>
+        </div>
+        
 
-    Williamsburg cliche edison bulb 3 wolf moon vinyl bespoke cornhole messenger bag forage affogato shoreditch banh mi. Franzen street art vaporware man bun. Raw denim cold-pressed tattooed meh green juice salvia fit photo booth tousled chicharrones cardigan tumeric venmo vice dreamcatcher. Lomo actually pitchfork vegan mlkshk fanny pack. Keffiyeh poutine listicle gluten-free pork belly, chambray vexillologist marfa tattooed tbh asymmetrical church-key. Intelligentsia 90's vexillologist hella, offal tilde deep v pug vibecession copper mug asymmetrical meggings tonx.
+
+    </div>
 </div>
