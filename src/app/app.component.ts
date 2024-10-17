@@ -23,10 +23,12 @@ export class AppComponent implements OnInit {
     show_message: boolean | false;
     alert: string | null;
     catfact: string | null;
+    book_page: boolean | false;
 
     constructor(private account_service: AccountService) {
         this.username = localStorage.getItem('user_name') ? localStorage.getItem('user_name') : 'Guest' ;
         this.show_message = localStorage.getItem('alert') ? true : false;
+        this.book_page = localStorage.getItem('book-list') ? true : false;
         this.alert = localStorage.getItem('alert') ? localStorage.getItem('alert') : '';
         this.catfact = '';
         setTimeout(() => {
@@ -50,6 +52,19 @@ export class AppComponent implements OnInit {
         let catfact = this.account_service.getCatFact();
         catfact.subscribe(data => {this.catfact = data.body.fact});
     }
-    
+
+    addBookPageStyle() {
+        let buttons = document.getElementsByClassName('button');
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].classList.add('book-list-button')
+        }
+    }
+
+    removeBookPageStyle() {
+        let buttons = document.getElementsByClassName('button');
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove('book-list-button')
+        }
+    }    
 
 }

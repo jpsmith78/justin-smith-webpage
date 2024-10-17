@@ -7,4 +7,7 @@ export interface Book {
     page_count: number | 0;
     publish_year: number | 0;
     description:  string | '';
+    completed: boolean | false;
+    in_progress: boolean | false;
+    owned: boolean | false;
 }

@@ -20,16 +20,16 @@ class Maps extends Controller {
         }
     }
 
-    public function getAllStates() {
-        $query = "SELECT * FROM justin_smith.states";
-        $states = $this->db->getArray($query, []);
+    // public function getAllStates() {
+    //     $query = "SELECT * FROM justin_smith.states";
+    //     $states = $this->db->getArray($query, []);
 
-        if (!empty($states)) {
-            print_r(json_encode($states));
-        } else {
-            print_r(json_encode('failed to get response'));
-        }
-    }
+    //     if (!empty($states)) {
+    //         print_r(json_encode($states));
+    //     } else {
+    //         print_r(json_encode('failed to get response'));
+    //     }
+    // }
 
     public function getAllUserStates($user_id) {
         $params = [];

@@ -13,13 +13,21 @@
     <p>compare to other users</p>
     <p>add sorting by category</p>
     <p>open/close all descriptions</p>
+    <p>login to play</p>
+    <p>redirect to home on logout</p>
+
     
-    <div class="book-list" *ngFor="let book of all_books">
+    <div class="book-list" *ngFor="let book of user_books">
+        <label for="{{book.book_id}}-completed">I've read this!</label><br>
+        <input type="checkbox" id="{{book.book_id}}-completed"[(ngModel)]="book.completed">
+        <label for="{{book.book_id}}-in_progress">I'm reading this!</label><br>
+        <input type="checkbox" id="{{book.book_id}}-in_progress"[(ngModel)]="book.in_progress">
         <div class="book">
             <div class="book-title">
                 <p>{{book.title}} - {{book.publish_year}}</p>
-                <button class="show-details-button" (click)="showDetails(book.book_id)">Show Details</button>
+                <button class="show-details-button" id="{{book.book_id}}-button" (click)="showDetails(book.book_id)">Show Details</button>
             </div>
+            
             <div class="book-details is-hidden" id="{{book.book_id}}">
                 <ul class="book-description">
                     <li>Author: {{book.authors}}</li>
@@ -30,8 +38,6 @@
                 <img src="../../assets/images/book-covers/{{book.cover_id}}-L.jpg">
             </div>
         </div>
-        
-
 
     </div>
 </div>
