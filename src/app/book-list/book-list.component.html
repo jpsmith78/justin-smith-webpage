@@ -18,10 +18,14 @@
 
     
     <div class="book-list" *ngFor="let book of user_books">
-        <label for="{{book.book_id}}-completed">I've read this!</label><br>
-        <input type="checkbox" id="{{book.book_id}}-completed"[(ngModel)]="book.completed">
-        <label for="{{book.book_id}}-in_progress">I'm reading this!</label><br>
-        <input type="checkbox" id="{{book.book_id}}-in_progress"[(ngModel)]="book.in_progress">
+        <div class="book-checkboxes">
+            <label for="{{book.book_id}}-completed">have read</label>
+            <input type="checkbox" id="{{book.book_id}}-completed"[(ngModel)]="book.completed" (change)="updateUserBook(book.book_id)">
+            <label for="{{book.book_id}}-in_progress">currently reading</label>
+            <input type="checkbox" id="{{book.book_id}}-in_progress"[(ngModel)]="book.in_progress" (change)="updateUserBook(book.book_id)">
+            <label for="{{book.book_id}}-in_progress">owned</label>
+            <input type="checkbox" id="{{book.book_id}}-owned"[(ngModel)]="book.owned" (change)="updateUserBook(book.book_id)">
+        </div>
         <div class="book">
             <div class="book-title">
                 <p>{{book.title}} - {{book.publish_year}}</p>

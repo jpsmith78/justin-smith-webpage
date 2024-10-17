@@ -50,19 +50,19 @@ class Books extends Controller {
 
     }
 
-    public function updateUserBook($user_id, $book_id, $completed, $in_progress, $owned) {
+    public function updateUserBook($book_id, $user_id, $completed, $in_progress, $owned) {
         $query = "
-            INSERT INTO justin_smith.user_books (user_id, book_id, completed, in_progress, owned)
+            INSERT INTO justin_smith.user_books (book_id, user_id, completed, in_progress, owned)
                 VALUES (?,?,?,?,?)
             ON DUPLICATE KEY UPDATE
-                completed = ?
-                in_progress = ?
+                completed = ?,
+                in_progress = ?,
                 owned = ?
         ";
 
         $params = [
-            $user_id,
             $book_id,
+            $user_id,
             $completed,
             $in_progress,
             $owned,
