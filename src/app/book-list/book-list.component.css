@@ -1,26 +1,67 @@
+.header {
+    font-family: "Storm-Gust";
+    background-color: var(--dark-gray);
+}
+
 .outer-container {
+    font-family: "King-Medium";
     width: 90%;
     margin: auto;
     padding-bottom: 100px;
 }
 
+.book-search-bar {
+    display: flex;
+    justify-content: start;
+    margin-bottom: 50px;
+}
+
 .book-list {
     margin: auto;
-    width: 80%;
+    width: 90%;
     display: flex;
 }
 
 .book {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: space-between;
+    margin-bottom: 10px;
 }
 
 .book-title {
-    margin-top: 10px;
+    margin-left: 30px;
     width: 400px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between; 
+    justify-content: space-between;
+}
+
+.title {
+    height: fit-content;
+    margin-top: 0;
+    font-family: "King-Bold";
+}
+
+.book-checkboxes {
+    display: flex;
+    flex-direction: row;
+    margin: 0, 20px;
+    width: 300px;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.checkbox-row {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+}
+
+.checkbox-label {
+    margin-left: 5px;
+    /* padding-left: 10px; */
 }
 
 .book-details {
@@ -32,6 +73,7 @@
     width: 400px;
     margin-left: 20px;
     margin-right: 20px;
+    margin-top: 0;
 }
 
 .is-hidden {

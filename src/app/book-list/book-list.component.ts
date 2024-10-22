@@ -9,6 +9,7 @@ import {
     NgClass,
     LowerCasePipe
 } from '@angular/common';
+import { ShortStory } from '../short-story';
 
 @Component({
   selector: 'app-book-list',
@@ -28,8 +29,11 @@ export class BookListComponent implements OnInit {
     user_id: string | null;
     user_name: string | null;
     current_book: Book;
-    user_books: Book[] | null;
+    user_books: Book[] = [];
+    filtered_books: Book[] = [];
+    short_stories: ShortStory[] = [];
     result_count: number;
+    search_string: string = '';
     
     constructor(private book_list_service: BookListService) {
         this.current_book = {
@@ -45,22 +49,6 @@ export class BookListComponent implements OnInit {
             in_progress: false, 
             owned: false
         };
-        
-        this.user_books = [
-            {
-                book_id: '',
-                cover_id: '',
-                title: '',
-                authors: '',
-                categories: '',
-                page_count: 0,
-                publish_year: 0,
-                description: '',
-                completed: false,
-                in_progress: false, 
-                owned: false
-            }
-        ];
 
         this.result_count = 0;
         this.user_id = localStorage.getItem('user_id');
@@ -68,8 +56,10 @@ export class BookListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getUserBooksByAuthor('Stephen King')
+        this.getUserBooksByAuthor('Stephen King');
+        this.getUserShortStoriesByAuthor('Stephen King');
         localStorage.setItem('book-list', 'on');
+        console.log(this.short_stories);
     }
 
     getUserBooksByAuthor(author: string) {
@@ -94,14 +84,26 @@ export class BookListComponent implements OnInit {
                 this.user_books?.push(temp_book);
 
             }
-            // The first index is empty. Get rid of it.
-            this.user_books?.splice(0,1);      
+            this.filtered_books = this.user_books;
+        });
+    }
+
+    getUserShortStoriesByAuthor(author: string) {
+        let ss_list = this.book_list_service.getUserShortStoriesByAuthor(author, this.user_id);
+        ss_list.subscribe(data => {
+            for (let story of data.body) {
+                let temp_story: ShortStory = {
+                    book_id: story.book_id,
+                    story_name: story.story_name
+                }
+
+                this.short_stories?.push(temp_story);
+            }
+            this.short_stories?.splice(0,1);      
         });
     }
 
     showDetails(book_id: string) {
-        // this.updateUserBook(book_id)
-
         let book_details = document.getElementById(book_id);
         book_details?.classList.toggle('is-hidden');
 
@@ -133,6 +135,22 @@ export class BookListComponent implements OnInit {
 
             });
         }
+    }
+
+    filterBooks() {
+        if (!this.search_string) {
+            this.filtered_books = this.user_books;
+            return;
+        }
+
+        this.filtered_books = this.user_books.filter(
+            user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase())
+        );
+    }
+
+    clearSearchBar() {
+        this.search_string = '';
+        this.filterBooks();
     }
 
 }

@@ -9,6 +9,21 @@
     src: url("assets/fonts/Roboto/Roboto-Bold.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "King-Bold";
+    src: url("assets/fonts/king-font/ITCBenguiatStdBoldCnIt.OTF") format("truetype");
+}
+
+@font-face {
+    font-family: "King-Medium";
+    src: url("assets/fonts/king-font/ITCBenguiatStdMediumCnIt.OTF") format("truetype");
+}
+
+@font-face {
+    font-family: "Storm-Gust";
+    src: url("assets/fonts/Storm-Gust.ttf") format("truetype");
+}
+
 @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
@@ -24,6 +39,13 @@
     --indigo: #130170;
     --teal: #01949A;
     --rose-red: #CD0046;
+
+    --black: #0c0c0c;
+    --dark-gray: #1f1f1f;
+    --fire-brick: #a01313;
+    --strong-red: #d42626;
+    --fanatic-fuchsia: #f0bd0d;
+    
 }
 
 body {

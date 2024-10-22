@@ -1,5 +1,5 @@
 <div class="header">
-    Stephen King Books
+    Fright Club
 </div>
 <div class="lower-nav-bar">
     <p>{{user_name}}</p>
@@ -7,28 +7,39 @@
 
 <div class="outer-container">
     <p>TODO</p>
-    <p>change page color</p>
+    <p>change page color -- logic done, just need to do styling</p>
     <p>search bar - jump to title, jump to collection if short story entered</p>
-    <p>check off read/reading - owned?</p>
     <p>compare to other users</p>
     <p>add sorting by category</p>
     <p>open/close all descriptions</p>
     <p>login to play</p>
-    <p>redirect to home on logout</p>
+    <div class="book-search-bar">
+        <input type="text" [(ngModel)]="search_string" (input)="filterBooks()" placeholder="Find Book by Name">
+        <button type="button" (click)="clearSearchBar()">Clear</button>
+    </div>
 
     
-    <div class="book-list" *ngFor="let book of user_books">
-        <div class="book-checkboxes">
-            <label for="{{book.book_id}}-completed">have read</label>
-            <input type="checkbox" id="{{book.book_id}}-completed"[(ngModel)]="book.completed" (change)="updateUserBook(book.book_id)">
-            <label for="{{book.book_id}}-in_progress">currently reading</label>
-            <input type="checkbox" id="{{book.book_id}}-in_progress"[(ngModel)]="book.in_progress" (change)="updateUserBook(book.book_id)">
-            <label for="{{book.book_id}}-in_progress">owned</label>
-            <input type="checkbox" id="{{book.book_id}}-owned"[(ngModel)]="book.owned" (change)="updateUserBook(book.book_id)">
-        </div>
+    <div class="book-list" *ngFor="let book of filtered_books">
         <div class="book">
+            <div class="book-checkboxes">
+                <div class="checkbox-row">
+                    <input type="checkbox" id="{{book.book_id}}-completed"[(ngModel)]="book.completed" (change)="updateUserBook(book.book_id)">
+                    <label class="checkbox-label" for="{{book.book_id}}-completed">finished</label>
+                </div>
+
+                <div class="checkbox-row">
+                    <input type="checkbox" id="{{book.book_id}}-in_progress"[(ngModel)]="book.in_progress" (change)="updateUserBook(book.book_id)">
+                    <label class="checkbox-label" for="{{book.book_id}}-in_progress">reading</label>
+                </div>
+
+                <div class="checkbox-row">
+                    <input type="checkbox" id="{{book.book_id}}-owned"[(ngModel)]="book.owned" (change)="updateUserBook(book.book_id)">
+                    <label class="checkbox-label" for="{{book.book_id}}-in_progress">owned</label>
+                </div>
+            </div>
+            
             <div class="book-title">
-                <p>{{book.title}} - {{book.publish_year}}</p>
+                <h3 class="title">{{book.title}} - {{book.publish_year}}</h3>
                 <button class="show-details-button" id="{{book.book_id}}-button" (click)="showDetails(book.book_id)">Show Details</button>
             </div>
             

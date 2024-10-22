@@ -38,12 +38,20 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        if (this.book_page == true) {
+            this.addBookPageStyle();
+        } else  {
+            this.removeBookPageStyle();
+        }
         this.getCatFact();
     }
 
     submitLogOut() {
         localStorage.clear();
         localStorage.setItem('alert', 'Log Out Successful!');
+        if (this.book_page == true) {
+            localStorage.setItem('book-list', 'on')
+        }
         this.username = 'Guest';
         window.location.reload();
     }
@@ -58,12 +66,25 @@ export class AppComponent implements OnInit {
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].classList.add('book-list-button')
         }
+
+        let outer_nav = document.getElementsByClassName('outer-nav');
+        for (let i = 0; i < outer_nav.length; i++) {
+            outer_nav[i].classList.add('book-list-outer-nav')
+        }
     }
 
     removeBookPageStyle() {
+        localStorage.removeItem('book-list');
+
         let buttons = document.getElementsByClassName('button');
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].classList.remove('book-list-button')
+        }
+
+
+        let outer_nav = document.getElementsByClassName('outer-nav');
+        for (let i = 0; i < buttons.length; i++) {
+            outer_nav[i].classList.remove('book-list-outer-nav')
         }
     }    
 

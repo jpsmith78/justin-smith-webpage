@@ -42,12 +42,28 @@ class Books extends Controller {
 
         $params = [
             $user_id,
-            "%" .$author . "%"
+            "%" . $author . "%"
         ];
 
         $user_books = $this->db->getArray($query, $params);
         print_r(json_encode($user_books));
+    }
 
+    public function getAllUserShortStoriesByAuthor($author, $user_id) {
+        $query = "
+            SELECT ss.book_id, ss.story_name
+                FROM justin_smith.short_stories ss
+            INNER JOIN justin_smith.books b ON (ss.book_id = b.book_id AND b.authors LIKE ?)
+            INNER JOIN justin_smith.user_books ub ON (ss.book_id = ub.book_id AND ub.user_id = ?)
+        ";
+
+        $params = [
+            "%" . $author . "%",
+            $user_id
+        ];
+
+        $short_stories = $this->db->getArray($query, $params);
+        print_r(json_encode($short_stories));
     }
 
     public function updateUserBook($book_id, $user_id, $completed, $in_progress, $owned) {
@@ -79,33 +95,5 @@ class Books extends Controller {
 
         print_r(json_encode($result));
     }
-
-    // public function updateUserBook($user_id, $book_id, $completed, $in_progress, $owned) {
-    //     $query = "
-    //         UPDATE justin_smith.user_books
-    //         SET completed = ?,
-    //             in_progress = ?,
-    //             owned = ?
-    //         WHERE user_id = ?
-    //         AND book_id = ?
-    //         VALUES (?,?,?,?,?)
-    //     ";
-
-    //     $params = [
-    //         $completed,
-    //         $in_progress,
-    //         $owned,
-    //         $user_id,
-    //         $book_id
-    //     ];
-
-    //     if ($this->db->execute($query, $params)) {
-    //         $result = 'user book update succesful';
-    //     } else {
-    //         $result = 'user book update failed';
-    //     }
-
-    //     print_r(json_encode($result));
-    // }
 
 }
