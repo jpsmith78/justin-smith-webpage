@@ -8,16 +8,22 @@
 <div class="outer-container">
     <p>TODO</p>
     <p>change page color -- logic done, just need to do styling</p>
-    <p>search bar - jump to title, jump to collection if short story entered</p>
     <p>compare to other users</p>
-    <p>add sorting by category</p>
     <p>open/close all descriptions</p>
     <p>login to play</p>
     <div class="book-search-bar">
-        <input type="text" [(ngModel)]="search_string" (input)="filterBooks()" placeholder="Find Book by Name">
+        <input type="text" [(ngModel)]="search_string" (input)="filterBooksBySearch()" placeholder="Find Book by Name">
         <button type="button" (click)="clearSearchBar()">Clear</button>
     </div>
+    <div class="book-category-dropdown">
+        <select [(ngModel)]="selected_category" (ngModelChange)="filterBooksByCategory()">
+            <option *ngFor="let category of dropdown_categories" [value]="category">
+              {{ category }}
+            </option>
+        </select>
+    </div>
 
+    <div class="book-count">{{user_name}} has read {{read_count}} of {{book_count}} books in the {{selected_category}} category</div>
     
     <div class="book-list" *ngFor="let book of filtered_books">
         <div class="book">

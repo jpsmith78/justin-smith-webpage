@@ -28,29 +28,17 @@ import { ShortStory } from '../short-story';
 export class BookListComponent implements OnInit {
     user_id: string | null;
     user_name: string | null;
-    current_book: Book;
     user_books: Book[] = [];
     filtered_books: Book[] = [];
+    category_books: Book[] = [];
     short_stories: ShortStory[] = [];
-    result_count: number;
+    read_count: number = 0;
+    book_count: number = 0;
     search_string: string = '';
+    dropdown_categories: string [] = ['fiction', 'collection', 'non-fiction', 'dark tower', 'bachman', 'bill hodges', 'all'];
+    selected_category: string = 'all';
     
     constructor(private book_list_service: BookListService) {
-        this.current_book = {
-            book_id: '',
-            cover_id: '',
-            title: '',
-            authors: '',
-            categories: '',
-            page_count: 0,
-            publish_year: 0,
-            description: '',
-            completed: false,
-            in_progress: false, 
-            owned: false
-        };
-
-        this.result_count = 0;
         this.user_id = localStorage.getItem('user_id');
         this.user_name = localStorage.getItem('user_name');
     }
@@ -64,7 +52,6 @@ export class BookListComponent implements OnInit {
 
     getUserBooksByAuthor(author: string) {
         let book_list = this.book_list_service.getUserBooksByAuthor(author, this.user_id);
-        console.log(this.user_id)
         book_list.subscribe(data => {
             for (let book of data.body) {
                 let temp_book: Book = {
@@ -85,6 +72,8 @@ export class BookListComponent implements OnInit {
 
             }
             this.filtered_books = this.user_books;
+            this.book_count = this.filtered_books.length;
+            this.read_count = this.filtered_books.filter(book => book.completed === true).length;
         });
     }
 
@@ -137,20 +126,67 @@ export class BookListComponent implements OnInit {
         }
     }
 
-    filterBooks() {
+    filterBooksBySearch() {
+        // If no string, show all books.
         if (!this.search_string) {
             this.filtered_books = this.user_books;
             return;
         }
 
-        this.filtered_books = this.user_books.filter(
-            user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase())
+        // Filtered list of books by book title.
+        if (!this.selected_category || this.selected_category === 'all') {
+            this.filtered_books = this.user_books.filter(
+                user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase())
+            );
+        } else {
+            this.filtered_books = this.filtered_books.filter(
+                user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase())
+            );
+        }
+
+
+        // Get a list of filtered short stories by title.
+        let matching_stories = this.short_stories.filter(
+            short_story => short_story.story_name.toLowerCase().includes(this.search_string.toLowerCase())
         );
+
+        // Match the book_id from the story title and append the book record to the filtered book list.
+        for (let i = 0; i < this.user_books.length; i++) {
+            if (this.user_books && matching_stories.find(e => e.book_id === this.user_books[i].book_id)) {
+                this.filtered_books.push(this.user_books[i])
+            }
+        }
+
+        this.book_count = this.filtered_books.length;
+        this.read_count = this.filtered_books.filter(book => book.completed === true).length;
     }
 
     clearSearchBar() {
         this.search_string = '';
-        this.filterBooks();
+        this.filterBooksBySearch();
+    }
+
+    filterBooksByCategory() {
+        console.log(this.selected_category)
+        if (!this.selected_category || this.selected_category == 'all') {
+            this.filtered_books = this.user_books;
+            return;
+        }
+
+        // fiction gets false positives from non-fiction, so let's make it a bit more explicit for that one.
+        if (this.selected_category === 'fiction') {
+            this.filtered_books = this.user_books.filter(
+                user_book => (user_book.categories.toLowerCase().includes(this.selected_category) && 
+                !user_book.categories.toLowerCase().includes('non-fiction'))
+            );
+        } else {
+            this.filtered_books = this.user_books.filter(
+                user_book => user_book.categories.toLowerCase().includes(this.selected_category)
+            );
+        }
+
+        this.book_count = this.filtered_books.length;
+        this.read_count = this.filtered_books.filter(book => book.completed === true).length;
     }
 
 }
