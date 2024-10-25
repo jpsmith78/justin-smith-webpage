@@ -8,10 +8,31 @@
         </nav>
         <div [ngClass]="show_message ? 'alert' : 'is-hidden'">{{alert}}</div>
         <nav class="inner-nav">
-            <p [ngClass]="(username == 'Guest')?'is-hidden':'logged-in-alert'">Logged in user: {{username}}</p>
-            <a [ngClass]="(username == 'Guest')?'button':'is-hidden'" routerLinkActive="active-button" routerLink="/login" (click)="removeBookPageStyle()">Login</a><br/>
-            <a [ngClass]="(username == 'Guest')?'is-hidden':'button'" routerLinkActive="active-button" (click)="submitLogOut()" >Log out</a><br/>
+            <p [ngClass]="{
+                'is-hidden':username == 'Guest',
+                'logged-in-alert':username !== 'Guest',
+                'book-list-logged-in-alert':book_page == true
+            }">Logged in user: {{username}}</p>
+            <a [ngClass]="{
+                'is-hidden':username !== 'Guest',
+                'button':username == 'Guest',
+                'book-list-button':book_page == true
+                }" 
+            routerLinkActive="active-button" 
+            routerLink="/login"
+            (click)="removeBookPageStyle()">Login</a><br/>
+            <a [ngClass]="{
+                'is-hidden':username == 'Guest',
+                'button':username !== 'Guest',
+                'book-list-button':book_page == true
+                }" 
+            routerLinkActive="active-button" 
+            (click)="submitLogOut()">Log out</a><br/>
         </nav>
+        <!-- <p [ngClass]="(username == 'Guest')?'is-hidden':'logged-in-alert'">Logged in user: {{username}}</p> -->
+        <!--                 'is-hidden':username == 'Guest',
+                'button':username !== 'Guest',
+                'book-list-button':book_page == true -->
     </div>
     <router-outlet></router-outlet>
     <div class="footer">

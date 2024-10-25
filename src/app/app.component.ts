@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -38,22 +38,24 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.book_page == true) {
-            this.addBookPageStyle();
-        } else  {
-            this.removeBookPageStyle();
-        }
+        this.checkForBookPage();
         this.getCatFact();
     }
 
     submitLogOut() {
+        // Make this a local variable so it doesn't get blown away on the reload.
+        let book_page = this.book_page;
+        console.log(book_page)
         localStorage.clear();
         localStorage.setItem('alert', 'Log Out Successful!');
-        if (this.book_page == true) {
-            localStorage.setItem('book-list', 'on')
-        }
+        localStorage.setItem('book-list', 'on');
         this.username = 'Guest';
         window.location.reload();
+        // If the book_page variable is true, keep the book page style.
+        console.log(book_page);
+        if (book_page) {
+            this.addBookPageStyle();
+        }
     }
 
     getCatFact() {
@@ -61,15 +63,28 @@ export class AppComponent implements OnInit {
         catfact.subscribe(data => {this.catfact = data.body.fact});
     }
 
+    checkForBookPage() {
+        if (localStorage.getItem('book-list')) {
+            this.addBookPageStyle();
+        } else  {
+            this.removeBookPageStyle();
+        }
+    }
+
     addBookPageStyle() {
         let buttons = document.getElementsByClassName('button');
         for (let i = 0; i < buttons.length; i++) {
-            buttons[i].classList.add('book-list-button')
+            buttons[i]?.classList.add('book-list-button')
+        }
+
+        let logged_in_alert = document.getElementsByClassName('logged-in-alert');
+        for (let i = 0; i < logged_in_alert.length; i++) {
+            logged_in_alert[i]?.classList.add('book-list-logged-in-alert')
         }
 
         let outer_nav = document.getElementsByClassName('outer-nav');
         for (let i = 0; i < outer_nav.length; i++) {
-            outer_nav[i].classList.add('book-list-outer-nav')
+            outer_nav[i]?.classList.add('book-list-outer-nav')
         }
     }
 
@@ -78,13 +93,17 @@ export class AppComponent implements OnInit {
 
         let buttons = document.getElementsByClassName('button');
         for (let i = 0; i < buttons.length; i++) {
-            buttons[i].classList.remove('book-list-button')
+            buttons[i]?.classList.remove('book-list-button')
         }
 
+        let logged_in_alert = document.getElementsByClassName('logged-in-alert');
+        for (let i = 0; i < logged_in_alert.length; i++) {
+            logged_in_alert[i]?.classList.remove('book-list-logged-in-alert')
+        }
 
         let outer_nav = document.getElementsByClassName('outer-nav');
         for (let i = 0; i < buttons.length; i++) {
-            outer_nav[i].classList.remove('book-list-outer-nav')
+            outer_nav[i]?.classList.remove('book-list-outer-nav')
         }
     }    
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BookListService } from '../book-list.service';
 import { Book } from '../book';
+import { ShortStory } from '../short-story';
 
 import {
     NgFor,
@@ -9,7 +10,6 @@ import {
     NgClass,
     LowerCasePipe
 } from '@angular/common';
-import { ShortStory } from '../short-story';
 
 @Component({
   selector: 'app-book-list',
@@ -30,13 +30,13 @@ export class BookListComponent implements OnInit {
     user_name: string | null;
     user_books: Book[] = [];
     filtered_books: Book[] = [];
-    category_books: Book[] = [];
     short_stories: ShortStory[] = [];
     read_count: number = 0;
     book_count: number = 0;
     search_string: string = '';
-    dropdown_categories: string [] = ['fiction', 'collection', 'non-fiction', 'dark tower', 'bachman', 'bill hodges', 'all'];
-    selected_category: string = 'all';
+    dropdown_categories: string [] = ['Fiction', 'Collection', 'Non-Fiction', 'Dark Tower', 'Bachman', 'Bill Hodges', 'All'];
+    selected_category: string = 'All';
+    show_hide_all_details_button: boolean = false;
     
     constructor(private book_list_service: BookListService) {
         this.user_id = localStorage.getItem('user_id');
@@ -105,6 +105,33 @@ export class BookListComponent implements OnInit {
                 button.textContent = 'Hide Details'
             }
         }
+
+        this.checkForOpenDetails();
+    }
+
+    hideAllDetails() {
+        let details = document.getElementsByClassName('book-details');
+        for (let i = 0; i < details.length; i++) {
+            details[i].classList.add('is-hidden');
+
+            let button = document.getElementById(details[i].id.concat('-button'))
+            if (button) {
+                button.textContent = 'Show Details'
+            }
+        }
+
+        this.checkForOpenDetails()
+    }
+
+    checkForOpenDetails() {
+        let show_button = false;
+        let details = document.getElementsByClassName('book-details');
+        for (let i = 0; i < details.length; i++) {
+            if (!details[i].classList.contains('is-hidden')) {
+                show_button = true;
+            }
+        }
+        this.show_hide_all_details_button = show_button;
     }
 
     updateUserBook(book_id: string) {
@@ -164,24 +191,26 @@ export class BookListComponent implements OnInit {
     clearSearchBar() {
         this.search_string = '';
         this.filterBooksBySearch();
+        this.filterBooksByCategory();
     }
 
     filterBooksByCategory() {
-        console.log(this.selected_category)
-        if (!this.selected_category || this.selected_category == 'all') {
+        if (!this.selected_category || this.selected_category == 'All') {
             this.filtered_books = this.user_books;
+            this.book_count = this.filtered_books.length;
+            this.read_count = this.filtered_books.filter(book => book.completed === true).length;
             return;
         }
 
         // fiction gets false positives from non-fiction, so let's make it a bit more explicit for that one.
         if (this.selected_category === 'fiction') {
             this.filtered_books = this.user_books.filter(
-                user_book => (user_book.categories.toLowerCase().includes(this.selected_category) && 
+                user_book => (user_book.categories.toLowerCase().includes(this.selected_category.toLowerCase()) && 
                 !user_book.categories.toLowerCase().includes('non-fiction'))
             );
         } else {
             this.filtered_books = this.user_books.filter(
-                user_book => user_book.categories.toLowerCase().includes(this.selected_category)
+                user_book => user_book.categories.toLowerCase().includes(this.selected_category.toLowerCase())
             );
         }
 
