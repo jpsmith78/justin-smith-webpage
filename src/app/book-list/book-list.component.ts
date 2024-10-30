@@ -33,10 +33,11 @@ export class BookListComponent implements OnInit {
     short_stories: ShortStory[] = [];
     read_count: number = 0;
     book_count: number = 0;
+    disable_checkbox: boolean = false;
     search_string: string = '';
     dropdown_categories: string [] = ['Fiction', 'Collection', 'Non-Fiction', 'Dark Tower', 'Bachman', 'Bill Hodges', 'All'];
     selected_category: string = 'All';
-    show_hide_all_details_button: boolean = false;
+    show_all_details: boolean = false;
     
     constructor(private book_list_service: BookListService) {
         this.user_id = localStorage.getItem('user_id');
@@ -47,7 +48,10 @@ export class BookListComponent implements OnInit {
         this.getUserBooksByAuthor('Stephen King');
         this.getUserShortStoriesByAuthor('Stephen King');
         localStorage.setItem('book-list', 'on');
-        console.log(this.short_stories);
+        if (!this.user_name) {
+            this.disable_checkbox = true;
+        }
+
     }
 
     getUserBooksByAuthor(author: string) {
@@ -109,6 +113,20 @@ export class BookListComponent implements OnInit {
         this.checkForOpenDetails();
     }
 
+    showAllDetails() {
+        let details = document.getElementsByClassName('book-details');
+        for (let i = 0; i < details.length; i++) {
+            details[i].classList.remove('is-hidden');
+
+            let button = document.getElementById(details[i].id.concat('-button'))
+            if (button) {
+                button.textContent = 'Hide Details'
+            }
+        }
+
+        this.checkForOpenDetails()
+    }
+
     hideAllDetails() {
         let details = document.getElementsByClassName('book-details');
         for (let i = 0; i < details.length; i++) {
@@ -124,14 +142,14 @@ export class BookListComponent implements OnInit {
     }
 
     checkForOpenDetails() {
-        let show_button = false;
+        let show_details = false;
         let details = document.getElementsByClassName('book-details');
         for (let i = 0; i < details.length; i++) {
             if (!details[i].classList.contains('is-hidden')) {
-                show_button = true;
+                show_details = true;
             }
         }
-        this.show_hide_all_details_button = show_button;
+        this.show_all_details = show_details;
     }
 
     updateUserBook(book_id: string) {
@@ -170,7 +188,6 @@ export class BookListComponent implements OnInit {
                 user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase())
             );
         }
-
 
         // Get a list of filtered short stories by title.
         let matching_stories = this.short_stories.filter(

@@ -22,6 +22,7 @@
 
 .lower-nav-bar {
     background-color: var(--yankees-blue);
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
@@ -31,31 +32,52 @@
     width: 90%;
     margin: auto;
     padding-bottom: 100px;
+    background-color: var(--light-gray);
+}
+
+.book-list-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 800px;
+    margin-bottom: 20px;
 }
 
 .book-search-bar, .book-category-dropdown {
     display: flex;
+    flex-direction: row;
     justify-content: start;
-    margin-bottom: 50px;
+    padding: 10px;
+}
+
+.search-bar, .dropdown {
+    margin: 0 10px;
 }
 
 .book-count {
     font-family: "King-Medium";
     color: var(light-gray);
+    display: flex;
+    justify-content: center;
 }
 
 .book-list {
     margin: auto;
     width: 90%;
     display: flex;
+    border: 1px solid  var(--yankees-blue);
+    margin-bottom: 2px;
+    background-color: var(--deep-space-sparkle);
+    color: white;
 }
 
 .book {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: space-between;
-    margin-bottom: 10px;
+    align-items: start;
+    padding: 10px;
+
 }
 
 .book-title {
@@ -91,13 +113,37 @@
     margin-left: 5px;
 }
 
+input[type="checkbox"] {
+    appearance: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--yankees-blue);
+    border-radius: 3px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    content: red;
+}
+
+input[type="checkbox"]::before {
+    content: " ";
+}
+
+input[type="checkbox"]:checked::before {
+    content: "\2713";
+    font-size: 26px;
+    color: var(--alizarin-crimson);
+}
+
 .book-details {
     display: flex;
     flex-direction: row;
+    padding-right: 10px;
 }
 
 .book-description {
-    width: 400px;
+    width: 300px;
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 0;
@@ -110,14 +156,41 @@
 .show-details-button {
     margin: 0;
     background-color: var(--alizarin-crimson);
-    color: var(--light-gray);
-    width: fit-content;
+    color: white;
+    width: 120px;
     height: fit-content;
     padding: 10px;
-    border: var(--deep-space-sparkle);
+    border: 1px solid var(--light-gray);
     border-radius: 6px;
 }
 
 .show-details-button:active {
     transform: translateY(2px);
+}
+
+.show-all-details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+img {
+    height: 300px;
+    border: 2px solid var(--rufous);
+    box-shadow: 
+    2px 2px 2px var(--yankees-blue);
+}
+
+label {
+    padding-top: 5px;
+}
+
+.book-completed {
+    background-color: var(--yankees-blue);
+}
+
+.disabled {
+    color: var(--light-gray);
 }

@@ -5,50 +5,50 @@
     </div>
 </div>
 <div class="lower-nav-bar">
-    
+
     <div class="book-count" *ngIf="user_name">{{user_name}} has read {{read_count}} of {{book_count}} {{(selected_category == 'All') ? '' : selected_category}} books.
     </div>
-    <div class="book-count" *ngIf="!user_name">Log in to make your spooky list.</div>
+    <div class="book-count" *ngIf="!user_name">No user logged in. Sign in to make your list.</div>
 </div>
 
 <div class="outer-container">
-    <p>TODO</p>
-    <p>compare to other users</p>
-    <p>login to play</p>
-    <div class="book-search-bar">
-        <input type="text" [(ngModel)]="search_string" (input)="filterBooksBySearch()" placeholder="Find Book by Name">
-        <button type="button" (click)="clearSearchBar()">Clear</button>
-    </div>
-    <div class="book-category-dropdown">
-        <select [(ngModel)]="selected_category" (ngModelChange)="filterBooksByCategory()">
-            <option *ngFor="let category of dropdown_categories" [value]="category">
-              {{ category }}
-            </option>
-        </select>
+
+    <div class="book-list-controls">
+        <div class="book-search-bar">
+            <label>Filter by Name</label>
+            <input class="search-bar" type="text" [(ngModel)]="search_string" (input)="filterBooksBySearch()" placeholder="Search">
+            <button type="button" (click)="clearSearchBar()">Clear</button>
+        </div>
+        <div class="book-category-dropdown">
+            <label>Filter by Category</label>
+            <select class="dropdown" [(ngModel)]="selected_category" (ngModelChange)="filterBooksByCategory()">
+                <option *ngFor="let category of dropdown_categories" [value]="category">
+                  {{ category }}
+                </option>
+            </select>
+        </div>
+        <div class="show-all-details" >
+            <button class="show-details-button" [ngClass]="{'is-hidden': !show_all_details}" type="button" (click)="hideAllDetails()">Hide All Details</button>
+            <button class="show-details-button" [ngClass]="{'is-hidden': show_all_details}" type="button" (click)="showAllDetails()">Show All Details</button>
+        </div>
     </div>
 
-
-
-    <div class="hide-all-details">
-        <button [ngClass]="{'is-hidden': !show_hide_all_details_button}" type="button" (click)="hideAllDetails()">Hide All Details</button>
-    </div>
-    
-    <div class="book-list" *ngFor="let book of filtered_books">
+    <div class="book-list" [ngClass]="{'book-completed':book.completed}" *ngFor="let book of filtered_books">
         <div class="book">
             <div class="book-checkboxes">
                 <div class="checkbox-row">
-                    <input type="checkbox" id="{{book.book_id}}-completed"[(ngModel)]="book.completed" (change)="updateUserBook(book.book_id)">
-                    <label class="checkbox-label" for="{{book.book_id}}-completed">finished</label>
+                    <input type="checkbox" id="{{book.book_id}}-completed" [disabled]="disable_checkbox" [(ngModel)]="book.completed" (change)="updateUserBook(book.book_id)">
+                    <label class="checkbox-label" [ngClass]="{disabled: disable_checkbox}">finished</label>
                 </div>
 
                 <div class="checkbox-row">
-                    <input type="checkbox" id="{{book.book_id}}-in_progress"[(ngModel)]="book.in_progress" (change)="updateUserBook(book.book_id)">
-                    <label class="checkbox-label" for="{{book.book_id}}-in_progress">reading</label>
+                    <input type="checkbox" id="{{book.book_id}}-in_progress" [disabled]="disable_checkbox" [(ngModel)]="book.in_progress" (change)="updateUserBook(book.book_id)">
+                    <label class="checkbox-label" [ngClass]="{disabled: disable_checkbox}">reading</label>
                 </div>
 
                 <div class="checkbox-row">
-                    <input type="checkbox" id="{{book.book_id}}-owned"[(ngModel)]="book.owned" (change)="updateUserBook(book.book_id)">
-                    <label class="checkbox-label" for="{{book.book_id}}-in_progress">owned</label>
+                    <input type="checkbox" id="{{book.book_id}}-owned" [disabled]="disable_checkbox" [(ngModel)]="book.owned" (change)="updateUserBook(book.book_id)">
+                    <label class="checkbox-label" [ngClass]="{disabled: disable_checkbox}">owned</label>
                 </div>
             </div>
             
