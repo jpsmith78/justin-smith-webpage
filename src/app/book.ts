@@ -8,6 +8,4 @@ export interface Book {
     publish_year: number | 0;
     description:  string | '';
     completed: boolean | false;
-    in_progress: boolean | false;
-    owned: boolean | false;
 }

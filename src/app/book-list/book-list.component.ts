@@ -30,6 +30,7 @@ export class BookListComponent implements OnInit {
     user_name: string | null;
     user_books: Book[] = [];
     filtered_books: Book[] = [];
+    category_books: Book[] = [];
     short_stories: ShortStory[] = [];
     read_count: number = 0;
     book_count: number = 0;
@@ -67,9 +68,7 @@ export class BookListComponent implements OnInit {
                     page_count: book.page_count,
                     publish_year: book.publish_year,
                     description: book.description,
-                    completed: book.completed == 'Y' ? true : false,
-                    in_progress: book.in_progress == 'Y' ? true : false,
-                    owned: book.owned == 'Y' ? true : false
+                    completed: book.completed == 'Y' ? true : false
                 }
 
                 this.user_books?.push(temp_book);
@@ -104,9 +103,11 @@ export class BookListComponent implements OnInit {
 
         if (button) {
             if (book_details?.classList.contains('is-hidden')) {
-                button.textContent = 'Show Details'
+                button.textContent = 'Show Details';
+                button.style.background = 'var(--alizarin-crimson)';
             } else {
                 button.textContent = 'Hide Details'
+                button.style.background = 'var(--rufous)';
             }
         }
 
@@ -120,7 +121,8 @@ export class BookListComponent implements OnInit {
 
             let button = document.getElementById(details[i].id.concat('-button'))
             if (button) {
-                button.textContent = 'Hide Details'
+                button.textContent = 'Hide Details';
+                button.style.background = 'var(--rufous)';
             }
         }
 
@@ -134,7 +136,8 @@ export class BookListComponent implements OnInit {
 
             let button = document.getElementById(details[i].id.concat('-button'))
             if (button) {
-                button.textContent = 'Show Details'
+                button.textContent = 'Show Details';
+                button.style.background = 'var(--alizarin-crimson)';
             }
         }
 
@@ -160,10 +163,8 @@ export class BookListComponent implements OnInit {
 
         if (new_values) {
             let completed = new_values[0].completed == true ? 'Y' : 'N';
-            let in_progress = new_values[0].in_progress == true ? 'Y' : 'N';
-            let owned = new_values[0].owned == true ? 'Y' : 'N';
 
-            let book = this.book_list_service.updateUserBook(book_id, this.user_id, completed, in_progress, owned);
+            let book = this.book_list_service.updateUserBook(book_id, this.user_id, completed);
             book.subscribe(data => {
                 console.log(data)
 
@@ -174,18 +175,18 @@ export class BookListComponent implements OnInit {
     filterBooksBySearch() {
         // If no string, show all books.
         if (!this.search_string) {
-            this.filtered_books = this.user_books;
+            this.filtered_books = this.category_books ? this.category_books :this.user_books;
             return;
         }
 
         // Filtered list of books by book title.
         if (!this.selected_category || this.selected_category === 'all') {
             this.filtered_books = this.user_books.filter(
-                user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase())
+                user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase().trim())
             );
         } else {
             this.filtered_books = this.filtered_books.filter(
-                user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase())
+                user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase().trim())
             );
         }
 
@@ -209,10 +210,12 @@ export class BookListComponent implements OnInit {
         this.search_string = '';
         this.filterBooksBySearch();
         this.filterBooksByCategory();
+        return;
     }
 
     filterBooksByCategory() {
         if (!this.selected_category || this.selected_category == 'All') {
+            this.category_books = this.user_books;
             this.filtered_books = this.user_books;
             this.book_count = this.filtered_books.length;
             this.read_count = this.filtered_books.filter(book => book.completed === true).length;
@@ -221,15 +224,17 @@ export class BookListComponent implements OnInit {
 
         // fiction gets false positives from non-fiction, so let's make it a bit more explicit for that one.
         if (this.selected_category === 'fiction') {
-            this.filtered_books = this.user_books.filter(
+            this.category_books = this.user_books.filter(
                 user_book => (user_book.categories.toLowerCase().includes(this.selected_category.toLowerCase()) && 
                 !user_book.categories.toLowerCase().includes('non-fiction'))
             );
         } else {
-            this.filtered_books = this.user_books.filter(
+            this.category_books = this.user_books.filter(
                 user_book => user_book.categories.toLowerCase().includes(this.selected_category.toLowerCase())
             );
         }
+
+        this.filtered_books = this.category_books;
 
         this.book_count = this.filtered_books.length;
         this.read_count = this.filtered_books.filter(book => book.completed === true).length;

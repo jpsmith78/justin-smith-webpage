@@ -203,11 +203,24 @@
 }
 
 .book-list-button {
+    box-shadow: 
+        1px 1px 1px var(--yankees-blue), 
+        inset 0 1px 0 0 var(--light-gray);
+    background: var(--teal);
     background: var(--alizarin-crimson);
     color: var(--light-gray);
     border: 1px solid var(--light-gray);
     font-family: "King-Medium";
-    font-size: 16px;
+    padding-top: 10px;
+}
+
+.active-book-button {
+    box-shadow: 
+        1px 1px 1px var(--yankees-blue), 
+        inset 0 1px 0 0 var(--light-gray); 
+    background: var(--rufous);
+    border: 1px solid var(--light-gray);
+    color: #ffffff;
 }
 
 .book-list-outer-nav {
@@ -218,4 +231,11 @@
     background: var(--alizarin-crimson);
     color: var(--light-gray);
     font-family: "King-Medium";
+    box-shadow: 
+        1px 1px 1px var(--yankees-blue), 
+        inset 0 1px 0 0 var(--light-gray); 
+}
+
+.book-list-footer {
+    display: none;
 }

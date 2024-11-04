@@ -1,6 +1,6 @@
 .header {
     font-family: "Storm-Gust";
-    height: 150px;
+    height: 250px;
     background-color: var(--deep-space-sparkle);
     text-shadow: 2px 2px 5px var(--yankees-blue);
     border-bottom: 0;
@@ -13,11 +13,11 @@
 }
 
 .title-one {
-    font-size: 68px;
+    font-size: 100px;
 }
 
 .title-two {
-    font-size: 28px;
+    font-size: 60px;
 }
 
 .lower-nav-bar {
@@ -25,11 +25,11 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    margin-bottom: 0;
 }
 
 .outer-container {
     font-family: "King-Medium";
-    width: 90%;
     margin: auto;
     padding-bottom: 100px;
     background-color: var(--light-gray);
@@ -38,20 +38,72 @@
 .book-list-controls {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 800px;
-    margin-bottom: 20px;
+    width: 1200px;
+    margin: 0 auto;
+    padding: 10px 0;
 }
 
 .book-search-bar, .book-category-dropdown {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    width: 350px;
     padding: 10px;
+}
+
+.book-category-dropdown {
+    width: 265px;
 }
 
 .search-bar, .dropdown {
     margin: 0 10px;
+    border: 2px solid var(--auro-metal-saurus);
+    border-radius: 4px;
+    background-color: white;
+    color: var(--yankees-blue)
+}
+
+.show-all-details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.show-details-button, .show-all-details-button {
+    margin: 0;
+    background-color: var(--alizarin-crimson);
+    color: white;
+    width: 120px;
+    height: fit-content;
+    padding: 10px;
+    border: 1px solid var(--light-gray);
+    border-radius: 6px;
+    box-shadow: 
+    1px 1px 1px var(--yankees-blue);
+}
+
+.show-all-details-button {
+    width: 150px;
+    background-color: var(--auro-metal-saurus);
+    border: 1px solid var(--yankees-blue);
+}
+
+.clear-button {
+    margin: 0;
+    background-color: var(--auro-metal-saurus);
+    color: white;
+    width: 60px;
+    height: fit-content;
+    padding: 6px;
+    border: 1px solid var(--yankees-blue);
+    border-radius: 6px;
+    box-shadow: 
+    1px 1px 1px var(--yankees-blue);
+}
+
+.show-details-button:active, .show-all-details-button:active, .clear-button:active {
+    transform: translateY(2px);
 }
 
 .book-count {
@@ -63,7 +115,7 @@
 
 .book-list {
     margin: auto;
-    width: 90%;
+    width: 1200px;
     display: flex;
     border: 1px solid  var(--yankees-blue);
     margin-bottom: 2px;
@@ -82,7 +134,7 @@
 
 .book-title {
     margin-left: 30px;
-    width: 450px;
+    width: 500px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -90,27 +142,18 @@
 
 .title {
     height: fit-content;
-    margin-top: 0;
-    font-family: "King-Bold";
+    margin-top: 5px;
+    font-family: "King-Medium";
+    font-size: 16px;
 }
 
-.book-checkboxes {
+.book-checkbox {
     display: flex;
     flex-direction: row;
     margin: 0, 20px;
-    width: 300px;
-    align-items: start;
-    justify-content: space-between;
-}
-
-.checkbox-row {
-    width: 100%;
-    display: flex;
-    justify-content: start;
-}
-
-.checkbox-label {
-    margin-left: 5px;
+    width: 50px;
+    align-items: center;
+    justify-content: center;
 }
 
 input[type="checkbox"] {
@@ -118,7 +161,7 @@ input[type="checkbox"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--yankees-blue);
+    border: 1px solid white;
     border-radius: 3px;
     width: 20px;
     height: 20px;
@@ -132,8 +175,18 @@ input[type="checkbox"]::before {
 
 input[type="checkbox"]:checked::before {
     content: "\2713";
-    font-size: 26px;
-    color: var(--alizarin-crimson);
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 28px;
+    color: white;
+    border: 1px solid var(--light-gray);
+    border-radius: 3px;
+    background-color: var(--alizarin-crimson);
+}
+
+input[type="checkbox"]:disabled {
+    display: none;
 }
 
 .book-details {
@@ -151,29 +204,6 @@ input[type="checkbox"]:checked::before {
 
 .is-hidden {
     display: none;
-}
-
-.show-details-button {
-    margin: 0;
-    background-color: var(--alizarin-crimson);
-    color: white;
-    width: 120px;
-    height: fit-content;
-    padding: 10px;
-    border: 1px solid var(--light-gray);
-    border-radius: 6px;
-}
-
-.show-details-button:active {
-    transform: translateY(2px);
-}
-
-.show-all-details {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
 }
 
 img {

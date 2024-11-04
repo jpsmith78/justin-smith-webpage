@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home-page',
@@ -8,6 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['../app.component.css', './home-page.component.css']
 })
 
-export class HomePageComponent {
+export class HomePageComponent implements OnInit{
+
+    constructor() {}
+
+    ngOnInit(): void {
+        localStorage.removeItem('book-list');
+    }
 
 }

@@ -31,9 +31,7 @@ class Books extends Controller {
                 b.publish_year,
                 b.publish_order,
                 b.description,
-                IF (ub.completed IS NOT NULL, ub.completed, 'N') as completed,
-                IF (ub.in_progress IS NOT NULL, ub.in_progress, 'N') as in_progress,
-                IF (ub.owned IS NOT NULL, ub.owned, 'N') as owned
+                IF (ub.completed IS NOT NULL, ub.completed, 'N') as completed
             FROM justin_smith.books b
             LEFT JOIN justin_smith.user_books ub ON (b.book_id = ub.book_id AND ub.user_id = ?)
             WHERE b.authors LIKE ?
@@ -66,25 +64,19 @@ class Books extends Controller {
         print_r(json_encode($short_stories));
     }
 
-    public function updateUserBook($book_id, $user_id, $completed, $in_progress, $owned) {
+    public function updateUserBook($book_id, $user_id, $completed) {
         $query = "
-            INSERT INTO justin_smith.user_books (book_id, user_id, completed, in_progress, owned)
-                VALUES (?,?,?,?,?)
+            INSERT INTO justin_smith.user_books (book_id, user_id, completed)
+                VALUES (?,?,?)
             ON DUPLICATE KEY UPDATE
-                completed = ?,
-                in_progress = ?,
-                owned = ?
+                completed = ?
         ";
 
         $params = [
             $book_id,
             $user_id,
             $completed,
-            $in_progress,
-            $owned,
-            $completed,
-            $in_progress,
-            $owned
+            $completed
         ];
 
         if ($this->db->execute($query, $params)) {
