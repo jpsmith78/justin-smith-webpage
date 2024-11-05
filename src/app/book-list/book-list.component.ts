@@ -103,10 +103,10 @@ export class BookListComponent implements OnInit {
 
         if (button) {
             if (book_details?.classList.contains('is-hidden')) {
-                button.textContent = 'Show Details';
+                button.textContent = 'Expand';
                 button.style.background = 'var(--alizarin-crimson)';
             } else {
-                button.textContent = 'Hide Details'
+                button.textContent = 'Collapse';
                 button.style.background = 'var(--rufous)';
             }
         }
@@ -115,13 +115,12 @@ export class BookListComponent implements OnInit {
     }
 
     showAllDetails() {
-        let details = document.getElementsByClassName('book-details');
+        let details = document.getElementsByClassName('book-long-details');
         for (let i = 0; i < details.length; i++) {
             details[i].classList.remove('is-hidden');
-
             let button = document.getElementById(details[i].id.concat('-button'))
             if (button) {
-                button.textContent = 'Hide Details';
+                button.textContent = 'Collapse';
                 button.style.background = 'var(--rufous)';
             }
         }
@@ -130,13 +129,12 @@ export class BookListComponent implements OnInit {
     }
 
     hideAllDetails() {
-        let details = document.getElementsByClassName('book-details');
+        let details = document.getElementsByClassName('book-long-details');
         for (let i = 0; i < details.length; i++) {
             details[i].classList.add('is-hidden');
-
             let button = document.getElementById(details[i].id.concat('-button'))
             if (button) {
-                button.textContent = 'Show Details';
+                button.textContent = 'Expand';
                 button.style.background = 'var(--alizarin-crimson)';
             }
         }
@@ -146,7 +144,7 @@ export class BookListComponent implements OnInit {
 
     checkForOpenDetails() {
         let show_details = false;
-        let details = document.getElementsByClassName('book-details');
+        let details = document.getElementsByClassName('book-long-details');
         for (let i = 0; i < details.length; i++) {
             if (!details[i].classList.contains('is-hidden')) {
                 show_details = true;

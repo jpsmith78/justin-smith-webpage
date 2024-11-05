@@ -86,6 +86,11 @@ export class AppComponent implements OnInit {
         for (let i = 0; i < outer_nav.length; i++) {
             outer_nav[i]?.classList.add('book-list-outer-nav')
         }
+
+        let footer = document.getElementsByClassName('footer');
+        for (let i = 0; i < footer.length; i++) {
+            footer[i]?.classList.add('book-list-footer')
+        }
     }
 
     removeBookPageStyle() {
@@ -102,8 +107,13 @@ export class AppComponent implements OnInit {
         }
 
         let outer_nav = document.getElementsByClassName('outer-nav');
-        for (let i = 0; i < buttons.length; i++) {
+        for (let i = 0; i < outer_nav.length; i++) {
             outer_nav[i]?.classList.remove('book-list-outer-nav')
+        }
+
+        let footer = document.getElementsByClassName('footer');
+        for (let i = 0; i < outer_nav.length; i++) {
+            footer[i]?.classList.remove('book-list-footer')
         }
     }    
 

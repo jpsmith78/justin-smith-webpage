@@ -38,15 +38,22 @@
 .book-list-controls {
     display: flex;
     flex-direction: row;
-    width: 1200px;
+    justify-content: space-between;
+    width: 1100px;
     margin: 0 auto;
     padding: 10px 0;
+}
+
+.book-filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 700px;
 }
 
 .book-search-bar, .book-category-dropdown {
     display: flex;
     flex-direction: row;
-    width: 350px;
     padding: 10px;
 }
 
@@ -68,13 +75,14 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
+    margin-right: 35px;
 }
 
 .show-details-button, .show-all-details-button {
     margin: 0;
     background-color: var(--alizarin-crimson);
     color: white;
-    width: 120px;
+    width: 80px;
     height: fit-content;
     padding: 10px;
     border: 1px solid var(--light-gray);
@@ -84,7 +92,7 @@
 }
 
 .show-all-details-button {
-    width: 150px;
+    width: 100px;
     background-color: var(--auro-metal-saurus);
     border: 1px solid var(--yankees-blue);
 }
@@ -115,7 +123,7 @@
 
 .book-list {
     margin: auto;
-    width: 1200px;
+    width: 1100px;
     display: flex;
     border: 1px solid  var(--yankees-blue);
     margin-bottom: 2px;
@@ -130,21 +138,6 @@
     align-items: start;
     padding: 10px;
 
-}
-
-.book-title {
-    margin-left: 30px;
-    width: 500px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.title {
-    height: fit-content;
-    margin-top: 5px;
-    font-family: "King-Medium";
-    font-size: 16px;
 }
 
 .book-checkbox {
@@ -189,17 +182,51 @@ input[type="checkbox"]:disabled {
     display: none;
 }
 
-.book-details {
+.book-title {
+    margin-left: 30px;
+    width: 300px;
     display: flex;
     flex-direction: row;
-    padding-right: 10px;
+    justify-content: space-between;
+    height: fit-content;
+    margin-top: 5px;
+    font-family: "King-Medium";
+    font-size: 18px;
+}
+
+.book-details { 
+    width: 550px;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-long-details, .book-short-details {
+    display: flex;
+    width: 550px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    margin: auto;
+}
+
+.book-long-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    padding-top: 20px;
 }
 
 .book-description {
-    width: 300px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 0;
+    width: 350px;
+}
+
+.book-list-button-container {
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .is-hidden {
@@ -207,7 +234,7 @@ input[type="checkbox"]:disabled {
 }
 
 img {
-    height: 300px;
+    height: 250px;
     border: 2px solid var(--rufous);
     box-shadow: 
     2px 2px 2px var(--yankees-blue);
