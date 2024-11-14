@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule } from '@angular/forms';
 import { BookListService } from '../book-list.service';
+import { AccountService } from '../account.service';
 import { Book } from '../book';
-import { ShortStory } from '../short-story';
+import { User } from '../user';
 
 import {
     NgFor,
@@ -19,43 +21,73 @@ import {
     NgIf,
     NgClass,
     LowerCasePipe,
-    FormsModule
+    FormsModule,
+    MatTooltipModule
   ],
   templateUrl: './book-list.component.html',
   styleUrls: ['../app.component.css','./book-list.component.css'],
 })
 
 export class BookListComponent implements OnInit {
+    all_users: User[] = [];
     user_id: string | null;
     user_name: string | null;
     user_books: Book[] = [];
     filtered_books: Book[] = [];
     category_books: Book[] = [];
-    short_stories: ShortStory[] = [];
     read_count: number = 0;
     book_count: number = 0;
+
+    user_two_books: Book[] = [];
+    user_two_filtered_books: Book[] = [];
+    user_two_category_books: Book[] = [];
+    user_two_read_count: number = 0;
+    user_two_book_count: number = 0;
+
     disable_checkbox: boolean = false;
     search_string: string = '';
     dropdown_categories: string [] = ['Fiction', 'Collection', 'Non-Fiction', 'Dark Tower', 'Bachman', 'Bill Hodges', 'All'];
     selected_category: string = 'All';
+    selected_user_id: string = '';
+    // user_two: User[];
     show_all_details: boolean = false;
     
-    constructor(private book_list_service: BookListService) {
+    constructor(
+        private book_list_service: BookListService,
+        private account_service: AccountService
+    ) {
         this.user_id = localStorage.getItem('user_id');
         this.user_name = localStorage.getItem('user_name');
     }
 
     ngOnInit(): void {
         this.getUserBooksByAuthor('Stephen King');
-        this.getUserShortStoriesByAuthor('Stephen King');
         localStorage.setItem('book-list', 'on');
         if (!this.user_name) {
             this.disable_checkbox = true;
         }
+        this.getAllUsers(this.user_id);
 
     }
 
+    getAllUsers(user_id: string | null) {
+        let users = this.account_service.getAllUsers();
+        users.subscribe(data => {
+            for (let user of data.body) {
+                if (user.user_id != user_id) {
+                    let temp_user: User = {
+                        user_id: user.user_id,
+                        user_name: user.user_name
+                    };
+                    this.all_users?.push(temp_user);
+                }
+
+            }
+        })
+    }
+
     getUserBooksByAuthor(author: string) {
+        this.user_books = [];
         let book_list = this.book_list_service.getUserBooksByAuthor(author, this.user_id);
         book_list.subscribe(data => {
             for (let book of data.body) {
@@ -80,18 +112,30 @@ export class BookListComponent implements OnInit {
         });
     }
 
-    getUserShortStoriesByAuthor(author: string) {
-        let ss_list = this.book_list_service.getUserShortStoriesByAuthor(author, this.user_id);
-        ss_list.subscribe(data => {
-            for (let story of data.body) {
-                let temp_story: ShortStory = {
-                    book_id: story.book_id,
-                    story_name: story.story_name
+    getUserTwoBooks() {
+        console.log('hello');
+        this.user_two_books = [];
+        let book_list = this.book_list_service.getUserBooksByAuthor('Stephen King', this.selected_user_id);
+        book_list.subscribe(data => {
+            for (let book of data.body) {
+                let temp_book: Book = {
+                    book_id: book.book_id,
+                    cover_id: book.cover_id,
+                    title: book.title,
+                    authors: book.authors,
+                    categories: book.categories,
+                    page_count: book.page_count,
+                    publish_year: book.publish_year,
+                    description: book.description,
+                    completed: book.completed == 'Y' ? true : false
                 }
 
-                this.short_stories?.push(temp_story);
+                this.user_two_books?.push(temp_book);
+
             }
-            this.short_stories?.splice(0,1);      
+            this.user_two_filtered_books = this.user_two_books;
+            this.user_two_book_count = this.user_two_filtered_books.length;
+            this.user_two_read_count = this.filtered_books.filter(book => book.completed === true).length;
         });
     }
 
@@ -168,13 +212,14 @@ export class BookListComponent implements OnInit {
 
             });
         }
+        this.book_count = this.filtered_books.length;
+        this.read_count = this.filtered_books.filter(book => book.completed === true).length;
     }
 
     filterBooksBySearch() {
         // If no string, show all books.
         if (!this.search_string) {
             this.filtered_books = this.category_books ? this.category_books :this.user_books;
-            return;
         }
 
         // Filtered list of books by book title.
@@ -183,21 +228,9 @@ export class BookListComponent implements OnInit {
                 user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase().trim())
             );
         } else {
-            this.filtered_books = this.filtered_books.filter(
+            this.filtered_books = this.category_books.filter(
                 user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase().trim())
             );
-        }
-
-        // Get a list of filtered short stories by title.
-        let matching_stories = this.short_stories.filter(
-            short_story => short_story.story_name.toLowerCase().includes(this.search_string.toLowerCase())
-        );
-
-        // Match the book_id from the story title and append the book record to the filtered book list.
-        for (let i = 0; i < this.user_books.length; i++) {
-            if (this.user_books && matching_stories.find(e => e.book_id === this.user_books[i].book_id)) {
-                this.filtered_books.push(this.user_books[i])
-            }
         }
 
         this.book_count = this.filtered_books.length;
@@ -209,6 +242,11 @@ export class BookListComponent implements OnInit {
         this.filterBooksBySearch();
         this.filterBooksByCategory();
         return;
+    }
+
+    resetDropdown() {
+        this.selected_category = 'All';
+        this.filterBooksByCategory();
     }
 
     filterBooksByCategory() {

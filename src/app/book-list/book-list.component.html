@@ -5,54 +5,79 @@
     </div>
 </div>
 <div class="lower-nav-bar">
-
     <div class="book-count" *ngIf="user_name">{{user_name}} has read {{read_count}} of {{book_count}} {{(selected_category == 'All') ? '' : selected_category}} books.
     </div>
     <div class="book-count" *ngIf="!user_name">No user logged in. Sign in to make your list.</div>
 </div>
-
 <div class="outer-container">
-    <div class="book-list-controls">
-        <div class="book-filters">
-            <div class="book-search-bar">
-                <label>Filter by Name</label>
-                <input class="search-bar" type="text" [(ngModel)]="search_string" (input)="filterBooksBySearch()" placeholder="Search">
-                <button class="clear-button" (click)="clearSearchBar()">Clear</button>
-            </div>
-            <div class="book-category-dropdown">
-                <label>Filter by Category</label>
-                <select class="dropdown" [(ngModel)]="selected_category" (ngModelChange)="filterBooksByCategory()">
-                    <option *ngFor="let category of dropdown_categories" [value]="category">
-                      {{ category }}
-                    </option>
-                </select>
-            </div>
+    <div class="left-container">
+        <div class="user_two_dropdown">
+            <label>Find and Opponent</label>
+            <select class="dropdown" [(ngModel)]="selected_user_id" (ngModelChange)="getUserTwoBooks()" >
+                <option *ngFor="let user of all_users" [value]="user.user_id">{{ user.user_name }}</option>
+
+            </select>
+            <div>Hello {{selected_user_id}}</div>
+
         </div>
-        <div class="show-all-details" >
-            <button class="show-all-details-button" [ngClass]="{'is-hidden': !show_all_details}" type="button" (click)="hideAllDetails()">Collapse All</button>
-            <button class="show-all-details-button" [ngClass]="{'is-hidden': show_all_details}" type="button" (click)="showAllDetails()">Expand All</button>
+        <div class="book-list" [ngClass]="{'book-completed':book.completed}" *ngFor="let book of user_two_filtered_books">
+            <div class="book">
+                <div class="book-checkbox">
+                    <input class="player-two-checkbox" type="checkbox" id="{{book.book_id}}-completed" [disabled]="true" [(ngModel)]="book.completed">
+                </div>    
+            </div>
+    
         </div>
     </div>
-
-    <div class="book-list" [ngClass]="{'book-completed':book.completed}" *ngFor="let book of filtered_books">
-        <div class="book">
-            <div class="book-checkbox">
-                <input type="checkbox" id="{{book.book_id}}-completed" [disabled]="disable_checkbox" [(ngModel)]="book.completed" (change)="updateUserBook(book.book_id)">
-            </div>    
-            <div class="book-title">{{book.title}}</div>
-            <div class="book-details">
-                <div class="book-short-details"><span>Author(s): {{book.authors}}</span>  -  <span>Published: {{book.publish_year}}</span>  -  <span>Page Count: {{book.page_count}}</span></div>
-            
-                <div class="book-long-details is-hidden" id="{{book.book_id}}">
-                    <div class="book-description">{{book.description}}</div>
-                    <img src="../../assets/images/book-covers/{{book.cover_id}}-L.jpg">
+    
+    <div class="main-container">
+        <div class="book-list-controls">
+            <div class="book-filters">
+                <div class="book-search-bar">
+                    <label>Filter by Name</label>
+                    <input class="search-bar" type="text" [(ngModel)]="search_string" (input)="filterBooksBySearch()" placeholder="Search">
+                    <button class="clear-button" (click)="clearSearchBar()">Clear</button>
+                </div>
+                <div class="book-category-dropdown">
+                    <label>Filter by Category</label>
+                    <select class="dropdown" [(ngModel)]="selected_category" (ngModelChange)="filterBooksByCategory()">
+                        <option *ngFor="let category of dropdown_categories" [value]="category">
+                          {{ category }}
+                        </option>
+                    </select>
+                    <button class="clear-button" (click)="resetDropdown()">Reset</button>
                 </div>
             </div>
-            <div class="book-list-button-container">
-                <button class="show-details-button" id="{{book.book_id}}-button" (click)="showDetails(book.book_id)">Expand</button>
+            <div class="show-all-details" >
+                <button class="show-all-details-button" [ngClass]="{'is-hidden': !show_all_details}" type="button" (click)="hideAllDetails()">Collapse All</button>
+                <button class="show-all-details-button" [ngClass]="{'is-hidden': show_all_details}" type="button" (click)="showAllDetails()">Expand All</button>
             </div>
-
         </div>
-
+    
+        <div class="book-list">
+            <div *ngIf="user_name">{{user_name}}'s books</div>
+        </div>
+        <div class="book-list" [ngClass]="{'book-completed':book.completed}" *ngFor="let book of filtered_books">
+            <div class="book">
+                <div class="book-checkbox">
+                    <input [matTooltip]="disable_checkbox ? 'Login to create your list' : ''" type="checkbox" id="{{book.book_id}}-completed" [disabled]="disable_checkbox" [(ngModel)]="book.completed" (change)="updateUserBook(book.book_id)">
+                </div>    
+                <div class="book-title">{{book.title}}</div>
+                <div class="book-details">
+                    <div class="book-short-details"><span>Author(s): {{book.authors}}</span>  -  <span>Published: {{book.publish_year}}</span>  -  <span>Page Count: {{book.page_count}}</span></div>
+                
+                    <div class="book-long-details is-hidden" id="{{book.book_id}}">
+                        <div class="book-description">{{book.description}}</div>
+                        <img src="../../assets/images/book-covers/{{book.cover_id}}-L.jpg">
+                    </div>
+                </div>
+                <div class="book-list-button-container">
+                    <button class="show-details-button" id="{{book.book_id}}-button" (click)="showDetails(book.book_id)">Expand</button>
+                </div>
+    
+            </div>
+    
+        </div>
     </div>
 </div>
+

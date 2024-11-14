@@ -20,10 +20,6 @@ export class BookListService {
         return this.http.get<any>(`${this.base_url}/?controller=books&method=getalluserbooksbyauthor&author=${author}&user_id=${user_id}`, {observe: 'response'});
     }
 
-    getUserShortStoriesByAuthor(author: string, user_id: string | null) {
-        return this.http.get<any>(`${this.base_url}/?controller=books&method=getallusershortstoriesbyauthor&author=${author}&user_id=${user_id}`, {observe: 'response'});
-    }
-
     updateUserBook(book_id: string, user_id: string | null, completed: string) {
         const config = {headers: {"Content-Type": "text/plain"}};
 

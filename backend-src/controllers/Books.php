@@ -47,23 +47,6 @@ class Books extends Controller {
         print_r(json_encode($user_books));
     }
 
-    public function getAllUserShortStoriesByAuthor($author, $user_id) {
-        $query = "
-            SELECT ss.book_id, ss.story_name
-                FROM justin_smith.short_stories ss
-            INNER JOIN justin_smith.books b ON (ss.book_id = b.book_id AND b.authors LIKE ?)
-            INNER JOIN justin_smith.user_books ub ON (ss.book_id = ub.book_id AND ub.user_id = ?)
-        ";
-
-        $params = [
-            "%" . $author . "%",
-            $user_id
-        ];
-
-        $short_stories = $this->db->getArray($query, $params);
-        print_r(json_encode($short_stories));
-    }
-
     public function updateUserBook($book_id, $user_id, $completed) {
         $query = "
             INSERT INTO justin_smith.user_books (book_id, user_id, completed)
