@@ -38,18 +38,19 @@ export class BookListComponent implements OnInit {
     read_count: number = 0;
     book_count: number = 0;
 
+    user_two: User = { user_id: '', user_name: '' };
     user_two_books: Book[] = [];
     user_two_filtered_books: Book[] = [];
     user_two_category_books: Book[] = [];
     user_two_read_count: number = 0;
     user_two_book_count: number = 0;
+    read_count_difference: number = 0;
 
     disable_checkbox: boolean = false;
     search_string: string = '';
     dropdown_categories: string [] = ['Fiction', 'Collection', 'Non-Fiction', 'Dark Tower', 'Bachman', 'Bill Hodges', 'All'];
     selected_category: string = 'All';
     selected_user_id: string = '';
-    // user_two: User[];
     show_all_details: boolean = false;
     
     constructor(
@@ -62,12 +63,13 @@ export class BookListComponent implements OnInit {
 
     ngOnInit(): void {
         this.getUserBooksByAuthor('Stephen King');
+        this.getUserTwoBooks();
         localStorage.setItem('book-list', 'on');
         if (!this.user_name) {
             this.disable_checkbox = true;
         }
         this.getAllUsers(this.user_id);
-
+        this.clearSearchBar();
     }
 
     getAllUsers(user_id: string | null) {
@@ -84,7 +86,9 @@ export class BookListComponent implements OnInit {
 
             }
         })
+
     }
+
 
     getUserBooksByAuthor(author: string) {
         this.user_books = [];
@@ -113,7 +117,6 @@ export class BookListComponent implements OnInit {
     }
 
     getUserTwoBooks() {
-        console.log('hello');
         this.user_two_books = [];
         let book_list = this.book_list_service.getUserBooksByAuthor('Stephen King', this.selected_user_id);
         book_list.subscribe(data => {
@@ -131,16 +134,22 @@ export class BookListComponent implements OnInit {
                 }
 
                 this.user_two_books?.push(temp_book);
-
             }
+
             this.user_two_filtered_books = this.user_two_books;
             this.user_two_book_count = this.user_two_filtered_books.length;
-            this.user_two_read_count = this.filtered_books.filter(book => book.completed === true).length;
+            this.user_two_read_count = this.user_two_filtered_books.filter(book => book.completed === true).length;
+            if (this.user_two_read_count > this.read_count) {
+                this.read_count_difference = this.user_two_read_count - this.read_count;
+            } else {
+                this.read_count_difference = this.read_count - this.user_two_read_count;
+            }
         });
     }
 
     showDetails(book_id: string) {
         let book_details = document.getElementById(book_id);
+
         book_details?.classList.toggle('is-hidden');
 
         let  button = document.getElementById(book_id.concat('-button'))
@@ -155,6 +164,15 @@ export class BookListComponent implements OnInit {
             }
         }
 
+        // Adjust the height of the user two rows along with the user one rows.
+        let main_book = document.getElementById('main-' + book_id);
+        let left_book = document.getElementById('left-' + book_id);
+        if (main_book && left_book) {
+            let height = main_book?.offsetHeight - 20;
+            let height_string = height.toString() + 'px';
+            left_book.style.height = height_string;
+        }
+
         this.checkForOpenDetails();
     }
 
@@ -167,6 +185,16 @@ export class BookListComponent implements OnInit {
                 button.textContent = 'Collapse';
                 button.style.background = 'var(--rufous)';
             }
+
+            // Adjust the height of the user two rows along with the user one rows.
+            let main_book = document.getElementById('main-' + details[i].id);
+            let left_book = document.getElementById('left-' + details[i].id);
+            if (main_book && left_book) {
+                let height = main_book?.offsetHeight - 20;
+                let height_string = height.toString() + 'px';
+                left_book.style.height = height_string;
+            }
+
         }
 
         this.checkForOpenDetails()
@@ -181,6 +209,16 @@ export class BookListComponent implements OnInit {
                 button.textContent = 'Expand';
                 button.style.background = 'var(--alizarin-crimson)';
             }
+
+            // Adjust the height of the user two rows along with the user one rows.
+            let main_book = document.getElementById('main-' + details[i].id);
+            let left_book = document.getElementById('left-' + details[i].id);
+            if (main_book && left_book) {
+                let height = main_book?.offsetHeight - 20;
+                let height_string = height.toString() + 'px';
+                left_book.style.height = height_string;
+            }
+            
         }
 
         this.checkForOpenDetails()
@@ -216,27 +254,6 @@ export class BookListComponent implements OnInit {
         this.read_count = this.filtered_books.filter(book => book.completed === true).length;
     }
 
-    filterBooksBySearch() {
-        // If no string, show all books.
-        if (!this.search_string) {
-            this.filtered_books = this.category_books ? this.category_books :this.user_books;
-        }
-
-        // Filtered list of books by book title.
-        if (!this.selected_category || this.selected_category === 'all') {
-            this.filtered_books = this.user_books.filter(
-                user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase().trim())
-            );
-        } else {
-            this.filtered_books = this.category_books.filter(
-                user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase().trim())
-            );
-        }
-
-        this.book_count = this.filtered_books.length;
-        this.read_count = this.filtered_books.filter(book => book.completed === true).length;
-    }
-
     clearSearchBar() {
         this.search_string = '';
         this.filterBooksBySearch();
@@ -249,12 +266,43 @@ export class BookListComponent implements OnInit {
         this.filterBooksByCategory();
     }
 
+    resetUserDropdown() {
+        this.selected_user_id = '';
+    }
+
+    filterBooksBySearch() {
+        // Filtered list of books by book title.
+        if (!this.selected_category || this.selected_category === 'all') {
+            this.filtered_books = this.user_books.filter(
+                user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase().trim())
+            );
+            this.user_two_filtered_books = this.user_two_books.filter(
+                user_two_book => user_two_book.title.toLowerCase().includes(this.search_string.toLowerCase().trim())
+            );
+        } else {
+            this.filtered_books = this.category_books.filter(
+                user_book => user_book.title.toLowerCase().includes(this.search_string.toLowerCase().trim())
+            );
+            this.user_two_filtered_books = this.user_two_category_books.filter(
+                user_two_book => user_two_book.title.toLowerCase().includes(this.search_string.toLowerCase().trim())
+            );
+        }
+
+        this.book_count = this.filtered_books.length;
+        this.read_count = this.filtered_books.filter(book => book.completed === true).length;
+    }
+
     filterBooksByCategory() {
         if (!this.selected_category || this.selected_category == 'All') {
             this.category_books = this.user_books;
             this.filtered_books = this.user_books;
             this.book_count = this.filtered_books.length;
             this.read_count = this.filtered_books.filter(book => book.completed === true).length;
+
+            this.user_two_category_books = this.user_two_books;
+            this.user_two_filtered_books = this.user_two_books;
+            this.user_two_book_count = this.user_two_filtered_books.length;
+            this.user_two_read_count = this.user_two_filtered_books.filter(book => book.completed === true).length;
             return;
         }
 
@@ -264,16 +312,29 @@ export class BookListComponent implements OnInit {
                 user_book => (user_book.categories.toLowerCase().includes(this.selected_category.toLowerCase()) && 
                 !user_book.categories.toLowerCase().includes('non-fiction'))
             );
+
+            this.user_two_category_books = this.user_two_books.filter(
+                user_book => (user_book.categories.toLowerCase().includes(this.selected_category.toLowerCase()) && 
+                !user_book.categories.toLowerCase().includes('non-fiction'))
+            );
         } else {
             this.category_books = this.user_books.filter(
+                user_book => user_book.categories.toLowerCase().includes(this.selected_category.toLowerCase())
+            );
+
+            this.user_two_category_books = this.user_two_books.filter(
                 user_book => user_book.categories.toLowerCase().includes(this.selected_category.toLowerCase())
             );
         }
 
         this.filtered_books = this.category_books;
+        this.user_two_filtered_books = this.user_two_category_books;
 
         this.book_count = this.filtered_books.length;
         this.read_count = this.filtered_books.filter(book => book.completed === true).length;
+
+        this.user_two_book_count = this.user_two_filtered_books.length;
+        this.user_two_read_count = this.user_two_filtered_books.filter(book => book.completed === true).length;
     }
 
 }

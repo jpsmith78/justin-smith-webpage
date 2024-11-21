@@ -3,7 +3,7 @@
         <nav class="inner-nav">
             <a class="button" routerLinkActive="active-button" routerLink="/home" (click)="removeBookPageStyle()">Home</a><br/>
             <a class="button" routerLinkActive="active-button" routerLink="/map" (click)="removeBookPageStyle()">Map Game</a><br/>
-            <a class="button" routerLinkActive="active-button" routerLink="/connect-four" (click)="removeBookPageStyle()">Connect 4</a><br/>
+            <!-- <a class="button" routerLinkActive="active-button" routerLink="/connect-four" (click)="removeBookPageStyle()">Connect 4</a><br/> -->
             <a class="button" routerLinkActive="active-book-button" routerLink="/book-list" (click)="addBookPageStyle()">Fright Club</a><br/>
         </nav>
         <div [ngClass]="show_message ? 'alert' : 'is-hidden'">{{alert}}</div>
