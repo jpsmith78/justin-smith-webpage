@@ -5,6 +5,7 @@
     text-shadow: 2px 2px 5px var(--yankees-blue);
     border-bottom: 0;
     letter-spacing: 5px;
+    width: 100vw;
 }
 
 .title-container {
@@ -19,6 +20,7 @@
 .title-one, .title-two{
     display: flex;
     justify-content: center;
+    text-align: center;
     font-size: 100px;
     width: 1000px;
     margin: auto;
@@ -40,7 +42,8 @@
 .outer-container {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 100vw;
+    overflow: scroll;
     font-family: "King-Medium";
     margin: auto;
     padding-bottom: 100px;
@@ -51,7 +54,6 @@
     display: flex;
     flex-direction: column;
     width: 100px;
-    overflow: hidden;
     margin-left: auto;
     margin-right: 10px;
 }
@@ -317,8 +319,66 @@ label {
     background-color: var(--yankees-blue);
 }
 
-.user-two-book-completed {
-    background-color: var(--yankees-blue);
-    filter: brightness(150%);
-    
+@media (max-width: 1000px) {
+    .header {
+        width: 110vw;
+        padding: 0;
+    }
 }
+
+@media (max-width: 500px) {
+
+    .title-container {
+        margin: auto;
+        width: 100vw;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .title-one {
+        width: 90vw;
+        font-size: 56px;
+        height: fit-content;
+    }
+
+    .title-two {
+        width: 80vw;
+        font-size: 36px;
+    }
+
+    .book-list-controls {
+        width: 110vw;
+        padding: 10px 0;
+        flex-direction: column;
+        align-items: end;
+
+    }
+
+    .book-filters {
+        width: 90vw;
+        flex-direction: column;
+    }
+
+    .book-filter-label {
+        width: 250px;
+    }
+
+    .dropdown, .search-bar {
+        width: 200px;
+    }
+
+    .clear-button {
+        width: 120px;
+    }
+
+    .outer-container {
+        width: 110vw;
+        padding: 0;
+        height: 600px;
+    }
+
+    .left-book-list {
+        min-height: 66px;
+    }
+}
+

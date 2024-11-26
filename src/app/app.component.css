@@ -79,7 +79,7 @@
 .header {
     background-color: var(--teal);
     height: 100px;
-    width: 100%;
+    width: 100vw;
     margin-top: -20px;
     display: flex;
     flex-direction: row;
@@ -238,4 +238,34 @@
 
 .book-list-footer {
     display: none;
+}
+
+@media (max-width: 1000px) {
+    .outer-nav, .lower-nav-bar, .header {
+        width: 110vw;
+        padding: 10px 0;
+    }
+    
+    .outer-nav {
+        flex-direction: column;
+    }
+
+    .inner-nav {
+        margin-left: 20px;
+    }
+
+    .button {
+        width: 120px;
+        font-size: 16px;
+        padding: 5px;
+    }
+}
+
+
+@media (max-width: 500px) {
+    .button {
+        width: 80px;
+        font-size: 14px;
+        padding: 5px;
+    }
 }

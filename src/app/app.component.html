@@ -29,10 +29,6 @@
             routerLinkActive="active-button" 
             (click)="submitLogOut()">Log out</a><br/>
         </nav>
-        <!-- <p [ngClass]="(username == 'Guest')?'is-hidden':'logged-in-alert'">Logged in user: {{username}}</p> -->
-        <!--                 'is-hidden':username == 'Guest',
-                'button':username !== 'Guest',
-                'book-list-button':book_page == true -->
     </div>
     <router-outlet></router-outlet>
     <div class="footer" [ngClass]="{'book-list-footer':book_page == true}">
