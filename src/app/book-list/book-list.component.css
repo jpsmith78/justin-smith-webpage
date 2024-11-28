@@ -154,7 +154,7 @@
 }
 
 .user-two-name, .user-one-name {
-    margin: auto;
+    margin: 0 auto;
     display: flex;
     width: 100px;
     justify-content: center;
@@ -319,30 +319,87 @@ label {
     background-color: var(--yankees-blue);
 }
 
+@media (max-width: 1400px) {
+    .book-list-controls {
+        width: 100vw;
+        padding: 10px 0;
+    }
+}
+
 @media (max-width: 1000px) {
     .header {
         width: 110vw;
         padding: 0;
     }
-}
-
-@media (max-width: 500px) {
 
     .title-container {
         margin: auto;
         width: 100vw;
         justify-content: center;
         align-items: center;
+        line-height: normal;
     }
 
     .title-one {
         width: 90vw;
-        font-size: 56px;
+        font-size: 66px;
         height: fit-content;
     }
 
     .title-two {
         width: 80vw;
+        font-size: 46px;
+    }
+
+    .book-list-controls {
+        width: 110vw;
+        padding: 10px 0;
+        flex-direction: column;
+        align-items: end;
+    }
+
+    .book-filters {
+        width: 70vw;
+        flex-direction: column;
+        margin: auto;
+    }
+
+    .book-filter-label {
+        width: 250px;
+    }
+
+    .dropdown, .search-bar {
+        width: 150px;
+        padding: 0;
+    }
+
+    .clear-button {
+        width: 100px;
+        margin: auto;
+    }
+
+    .outer-container {
+        width: 110vw;
+        padding: 0;
+        height: 600px;
+    }
+
+    .left-container {
+        height: fit-content;
+    }
+
+    .left-book-list {
+        min-height: 66px;
+    } 
+}
+
+@media (max-width: 500px) {
+
+    .title-one {
+        font-size: 56px;
+    }
+
+    .title-two {
         font-size: 36px;
     }
 
