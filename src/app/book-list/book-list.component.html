@@ -6,7 +6,7 @@
 </div>
 <div class="lower-nav-bar">
     <div *ngFor="let user of all_users">
-        <div class="book-count" *ngIf="selected_user_id == user.user_id">{{user.user_name}} has read {{user_two_read_count}} of {{user_two_book_count}} books</div>
+        <div class="book-count" *ngIf="selected_user_id == user.user_id">{{user.user_name}} has read {{user_two_read_count}} of {{user_two_book_count}} {{(selected_category == 'All') ? '' : selected_category}} books.</div>
     </div>
     <div class="book-count" *ngIf="user_name">{{user_name}} has read {{read_count}} of {{book_count}} {{(selected_category == 'All') ? '' : selected_category}} books.
     </div>

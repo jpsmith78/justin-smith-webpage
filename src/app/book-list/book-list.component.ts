@@ -135,16 +135,16 @@ export class BookListComponent implements OnInit {
 
                 this.user_two_books?.push(temp_book);
             }
+            this.filterBooksByCategory();
+            this.filterBooksBySearch();
 
-            this.user_two_filtered_books = this.user_two_books;
-            this.user_two_book_count = this.user_two_filtered_books.length;
-            this.user_two_read_count = this.user_two_filtered_books.filter(book => book.completed === true).length;
             if (this.user_two_read_count > this.read_count) {
                 this.read_count_difference = this.user_two_read_count - this.read_count;
             } else {
                 this.read_count_difference = this.read_count - this.user_two_read_count;
             }
         });
+
     }
 
     showDetails(book_id: string) {
@@ -290,6 +290,8 @@ export class BookListComponent implements OnInit {
 
         this.book_count = this.filtered_books.length;
         this.read_count = this.filtered_books.filter(book => book.completed === true).length;
+        this.user_two_book_count = this.user_two_filtered_books.length;
+        this.user_two_read_count = this.user_two_filtered_books.filter(book => book.completed === true).length;
     }
 
     filterBooksByCategory() {
@@ -319,11 +321,11 @@ export class BookListComponent implements OnInit {
             );
         } else {
             this.category_books = this.user_books.filter(
-                user_book => user_book.categories.toLowerCase().includes(this.selected_category.toLowerCase())
+                user_two_book => user_two_book.categories.toLowerCase().includes(this.selected_category.toLowerCase())
             );
 
             this.user_two_category_books = this.user_two_books.filter(
-                user_book => user_book.categories.toLowerCase().includes(this.selected_category.toLowerCase())
+                user_two_book => user_two_book.categories.toLowerCase().includes(this.selected_category.toLowerCase())
             );
         }
 
