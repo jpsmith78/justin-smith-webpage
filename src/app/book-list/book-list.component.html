@@ -25,7 +25,7 @@
 <div class="book-list-controls">
     <div class="book-filters">
         <div class="user_two_dropdown">
-            <label class="book-filter-label">Find and Opponent</label>
+            <label class="book-filter-label">Find a Friend</label>
             <select class="dropdown" [(ngModel)]="selected_user_id" (ngModelChange)="getUserTwoBooks()" >
                 <option *ngFor="let user of all_users" [value]="user.user_id">{{ user.user_name }}</option>
             </select>

@@ -8,11 +8,6 @@
         </nav>
         <div [ngClass]="show_message ? 'alert' : 'is-hidden'">{{alert}}</div>
         <nav class="inner-nav">
-            <p [ngClass]="{
-                'is-hidden':username == 'Guest',
-                'logged-in-alert':username !== 'Guest',
-                'book-list-logged-in-alert':book_page == true
-            }">Logged in user: {{username}}</p>
             <a [ngClass]="{
                 'is-hidden':username !== 'Guest',
                 'button':username == 'Guest',

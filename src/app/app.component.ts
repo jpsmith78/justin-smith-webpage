@@ -77,11 +77,6 @@ export class AppComponent implements OnInit {
             buttons[i]?.classList.add('book-list-button')
         }
 
-        let logged_in_alert = document.getElementsByClassName('logged-in-alert');
-        for (let i = 0; i < logged_in_alert.length; i++) {
-            logged_in_alert[i]?.classList.add('book-list-logged-in-alert')
-        }
-
         let outer_nav = document.getElementsByClassName('outer-nav');
         for (let i = 0; i < outer_nav.length; i++) {
             outer_nav[i]?.classList.add('book-list-outer-nav')
@@ -99,11 +94,6 @@ export class AppComponent implements OnInit {
         let buttons = document.getElementsByClassName('button');
         for (let i = 0; i < buttons.length; i++) {
             buttons[i]?.classList.remove('book-list-button')
-        }
-
-        let logged_in_alert = document.getElementsByClassName('logged-in-alert');
-        for (let i = 0; i < logged_in_alert.length; i++) {
-            logged_in_alert[i]?.classList.remove('book-list-logged-in-alert')
         }
 
         let outer_nav = document.getElementsByClassName('outer-nav');

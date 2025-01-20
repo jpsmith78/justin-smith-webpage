@@ -103,6 +103,7 @@
 .greeting {
     font-size: 36px;
     font-weight: bold;
+    line-height: normal;
     background-color: var(--indigo);
     color: var(--seafoam-green);
     padding: 3%;

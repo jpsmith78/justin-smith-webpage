@@ -64,17 +64,6 @@
     margin: 10px;
 }
 
-.logged-in-alert {
-    margin: 0 20px;
-    background-color: var(--rose-red);
-    color: var(--seafoam-green);
-    padding: 10px;
-    border-radius: 6px;
-    box-shadow: 
-    1px 1px 1px var(--indigo), 
-    inset 0 1px 0 0 var(--seafoam-green);  
-}
-
 /* the following styles are inherited by child pages */
 .header {
     background-color: var(--teal);
@@ -196,10 +185,6 @@
     .outer-nav {
         flex-wrap: wrap;
     }
-
-    .logged-in-alert {
-        margin: 5px;
-    }
 }
 
 .book-list-button {
@@ -225,15 +210,6 @@
 
 .book-list-outer-nav {
     background-color: var(--deep-space-sparkle);
-}
-
-.book-list-logged-in-alert {
-    background: var(--alizarin-crimson);
-    color: var(--light-gray);
-    font-family: "King-Medium";
-    box-shadow: 
-        1px 1px 1px var(--yankees-blue), 
-        inset 0 1px 0 0 var(--light-gray); 
 }
 
 .book-list-footer {
