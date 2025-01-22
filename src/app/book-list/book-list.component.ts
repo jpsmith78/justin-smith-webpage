@@ -117,6 +117,9 @@ export class BookListComponent implements OnInit {
     }
 
     getUserTwoBooks() {
+        // Collapse all expanded details when selecting user two.
+        this.hideAllDetails();
+
         this.user_two_books = [];
         let book_list = this.book_list_service.getUserBooksByAuthor('Stephen King', this.selected_user_id);
         book_list.subscribe(data => {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AccountService } from './account.service';
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     catfact: string | null;
     book_page: boolean | false;
 
-    constructor(private account_service: AccountService) {
+    constructor(private account_service: AccountService, private location: Location) {
         this.username = localStorage.getItem('user_name') ? localStorage.getItem('user_name') : 'Guest' ;
         this.show_message = localStorage.getItem('alert') ? true : false;
         this.book_page = localStorage.getItem('book-list') ? true : false;
@@ -40,19 +40,20 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
         this.checkForBookPage();
         this.getCatFact();
+        if (this.location.path() == '') {
+            this.removeBookPageStyle();
+        }
     }
 
     submitLogOut() {
         // Make this a local variable so it doesn't get blown away on the reload.
         let book_page = this.book_page;
-        console.log(book_page)
         localStorage.clear();
         localStorage.setItem('alert', 'Log Out Successful!');
         localStorage.setItem('book-list', 'on');
         this.username = 'Guest';
         window.location.reload();
         // If the book_page variable is true, keep the book page style.
-        console.log(book_page);
         if (book_page) {
             this.addBookPageStyle();
         }
